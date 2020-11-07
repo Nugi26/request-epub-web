@@ -13,15 +13,7 @@ function a11yProps(index) {
 }
 
 function LinkTab(props) {
-  return (
-    <Tab
-      component="Link"
-      onClick={event => {
-        event.preventDefault();
-      }}
-      {...props}
-    />
-  );
+  return <Tab component={Link} {...props} />;
 }
 
 const useStyles = makeStyles(theme => ({
@@ -31,7 +23,7 @@ const useStyles = makeStyles(theme => ({
   },
 }));
 
-export default function NavTabs() {
+export default function Navigation() {
   const classes = useStyles();
   const [value, setValue] = React.useState(0);
 

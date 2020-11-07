@@ -1,13 +1,21 @@
 import React from 'react';
+import { BrowserRouter as Router, Redirect, Route } from 'react-router-dom';
 import Layout from '../components/Layout';
+import Home from './home';
+import MyRequests from './myrequests';
+import About from './about';
+import SignUp from './SignUp';
 
 const Pages = () => {
   return (
-    <React.Fragment>
+    <Router>
       <Layout>
-        <h2>Ini Main Content</h2>
+        <Route exact path="/" component={Home} />
+        <Route path="/myrequests" component={MyRequests} />
+        <Route path="/about" component={About} />
+        <Route path="/signup" component={SignUp} />
       </Layout>
-    </React.Fragment>
+    </Router>
   );
 };
 
