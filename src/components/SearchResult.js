@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import Grid from '@material-ui/core/Grid';
 import Paper from '@material-ui/core/Paper';
 import Requested from './requested';
+import Unrequested from './unrequested';
 
 const SearchResult = ({ result, data }) => {
   let books;
@@ -22,5 +23,12 @@ const SearchResult = ({ result, data }) => {
 export default SearchResult;
 
 const BookResult = ({ books }) => {
-  return <div>hai</div>;
+  const requested = books.filter(book => !!book.id);
+  const unrequested = books.filter(book => !book.id);
+  return (
+    <React.Fragment>
+      <Requested books={requested} />
+      <Unrequested books={unrequested} />
+    </React.Fragment>
+  );
 };

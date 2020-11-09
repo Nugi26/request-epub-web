@@ -5,6 +5,7 @@ const SEARCH_BOOK = gql`
     searchBook(keywords: $keywords) {
       totalItems
       items {
+        id
         gbook_id
         title
         subtitle
@@ -18,7 +19,8 @@ const SEARCH_BOOK = gql`
         thumbnail
         average_rating
         ratings_count
-        requestedId
+        reqs_count
+        req_by_me
       }
     }
   }

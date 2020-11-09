@@ -14,7 +14,7 @@ const useStyles = makeStyles(theme => ({
   },
 }));
 
-const Requested = ({ data }) => {
+const Requested = ({ books }) => {
   const classes = useStyles();
   return (
     <div className={classes.root}>

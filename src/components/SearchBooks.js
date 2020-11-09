@@ -34,12 +34,18 @@ const SearchBooks = () => {
 
   const [querySearch, { loading, error, data }] = useLazyQuery(SEARCH_BOOK);
 
-  // onclick handler
-  const onClick = () => {
+  // run query
+  const runQuery = () => {
     if (!keywords) return null;
     querySearch({
       variables: { keywords },
     });
+  };
+
+  const onKeyUp = e => {
+    if (e.keyCode === 13) {
+      runQuery();
+    }
   };
 
   return (
@@ -53,8 +59,9 @@ const SearchBooks = () => {
           placeholder="Judul & Pengarang"
           variant="outlined"
           onChange={onChange}
+          onKeyUp={onKeyUp}
         />
-        <IconButton aria-label="Search" onClick={onClick}>
+        <IconButton aria-label="Search" onClick={runQuery}>
           <SearchIcon />
         </IconButton>
       </Container>
