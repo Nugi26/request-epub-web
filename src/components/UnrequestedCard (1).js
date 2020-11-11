@@ -19,11 +19,11 @@ const Requested = ({ books }) => {
   const classes = useStyles();
   return (
     <div className={classes.root}>
-      <Grid container spacing={3}>
-        <Typography gutterBottom variant="h5" component="h3">
-          Buku yang belum di-request
-        </Typography>
+      <Typography gutterBottom variant="h4" component="h3">
+        Buku yang telah di-request
+      </Typography>
 
+      <Grid container spacing={1}>
         <Grid item xs={2}>
           <Paper className={classes.paper}>book cover</Paper>
         </Grid>
