@@ -39,6 +39,7 @@ const SearchBooks = () => {
     if (!keywords) return null;
     querySearch({
       variables: { keywords },
+      onCompleted: data => console.log(data),
     });
   };
 
