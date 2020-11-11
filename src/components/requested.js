@@ -1,40 +1,48 @@
 import React from 'react';
 import Grid from '@material-ui/core/Grid';
-import { makeStyles } from '@material-ui/core/styles';
-import Paper from '@material-ui/core/Paper';
 import Typography from '@material-ui/core/Typography';
+import { makeStyles } from '@material-ui/core/styles';
+import Container from '@material-ui/core/Container';
+import RequestedCard from './RequestedCard';
 
 const useStyles = makeStyles(theme => ({
-  root: {
-    flexGrow: 1,
+  icon: {
+    marginRight: theme.spacing(2),
   },
-  paper: {
-    padding: theme.spacing(2),
-    textAlign: 'center',
-    color: theme.palette.text.secondary,
+  cardGrid: {
+    paddingTop: theme.spacing(6),
+    paddingBottom: theme.spacing(6),
+    listStyleType: 'none',
+  },
+  gridContainer: {
+    paddingTop: theme.spacing(3),
   },
 }));
 
-const Requested = ({ books }) => {
+export default function Requested({ books }) {
   const classes = useStyles();
   return (
-    <div className={classes.root}>
-      <Grid container spacing={3}>
+    <React.Fragment>
+      <Container className={classes.cardGrid} maxWidth="md">
         <Typography gutterBottom variant="h5" component="h3">
-          Buku yang belum di-request
+          Buku yang telah di-request
         </Typography>
-
-        <Grid item xs={2}>
-          <Paper className={classes.paper}>book cover</Paper>
+        <Grid
+          container
+          spacing={4}
+          component="ul"
+          justify="center"
+          className={classes.gridContainer}
+        >
+          {books.map(book => {
+            return (
+              <Grid item key={book.id} xs={12} md={12} component="li">
+                <RequestedCard book={book} />
+              </Grid>
+            );
+          })}
         </Grid>
-        <Grid item xs={8}>
-          <Paper className={classes.paper}>book info</Paper>
-        </Grid>
-        <Grid item xs={2}>
-          <Paper className={classes.paper}>requests count</Paper>
-        </Grid>
-      </Grid>
-    </div>
+      </Container>
+    </React.Fragment>
   );
-};
-export default Requested;
+}
