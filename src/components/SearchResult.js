@@ -23,8 +23,8 @@ const SearchResult = ({ result, data }) => {
 export default SearchResult;
 
 const BookResult = ({ books }) => {
-  const requested = books.filter(book => !!book.id);
-  const unrequested = books.filter(book => !book.id);
+  const requested = books.filter(book => book.reqs_count !== null);
+  const unrequested = books.filter(book => book.reqs_count === null);
   return (
     <React.Fragment>
       {!!requested.length && <Requested books={requested} />}

@@ -23,25 +23,24 @@ const useStyles = makeStyles(theme => ({
 
 const UnrequestedCard = ({ book }) => {
   const classes = useStyles();
-  // console.log(book);
   return (
     <Card className={classes.card}>
       <CardMedia
         className={classes.cardMedia}
-        image={book.smallThumbnail || null}
+        image={book.small_thumbnail || 'https://source.unsplash.com/random'}
         title={`Gambar cover buku ${book.title}`}
       />
       <CardContent className={classes.cardContent}>
-        <Typography gutterBottom variant="h5" component="h4">
+        <Typography variant="subtitle1" component="h4">
           {book.title}
         </Typography>
         {book.subtitle && (
-          <Typography gutterBottom variant="h6" component="h5">
+          <Typography variant="subtitle2" component="h5" noWrap>
             {book.subtitle}
           </Typography>
         )}
 
-        <Typography>
+        <Typography variant="body2">
           {!!book.authors && `Penulis: ${book.authors.join(', ')}.`}
         </Typography>
       </CardContent>
