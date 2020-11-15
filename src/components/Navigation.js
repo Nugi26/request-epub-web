@@ -3,12 +3,11 @@ import { makeStyles } from '@material-ui/core/styles';
 import AppBar from '@material-ui/core/AppBar';
 import Tabs from '@material-ui/core/Tabs';
 import Tab from '@material-ui/core/Tab';
-import { Link } from 'react-router-dom';
+import { useLocation, Link } from 'react-router-dom';
 
 function a11yProps(index) {
   return {
     id: `nav-tab-${index}`,
-    'aria-controls': `nav-tabpanel-${index}`,
   };
 }
 
@@ -23,10 +22,20 @@ const useStyles = makeStyles(theme => ({
   },
 }));
 
-export default function Navigation() {
+export default function Navigation(props) {
   const classes = useStyles();
-  const [value, setValue] = React.useState(0);
-
+  const { pathname } = useLocation();
+  const selectedIndex = () => {
+    switch (pathname) {
+      case '/myrequests':
+        return 1;
+      case '/about':
+        return 2;
+      case '/':
+        return 0;
+    }
+  };
+  const [value, setValue] = React.useState(selectedIndex() || 0);
   const handleChange = (event, newValue) => {
     setValue(newValue);
   };
