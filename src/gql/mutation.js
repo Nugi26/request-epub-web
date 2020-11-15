@@ -6,4 +6,10 @@ const SIGN_UP = gql`
   }
 `;
 
-export { SIGN_UP };
+const SIGN_IN = gql`
+  mutation signIn($usernameOrEmail: String!, $password: String!) {
+    signIn(usernameOrEmail: $usernameOrEmail, password: $password)
+  }
+`;
+
+export { SIGN_UP, SIGN_IN };

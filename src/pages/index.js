@@ -5,6 +5,7 @@ import Home from './home';
 import MyRequests from './myrequests';
 import About from './about';
 import SignUp from './SignUp';
+import SignIn from './signin';
 
 const Pages = () => {
   return (
@@ -14,6 +15,7 @@ const Pages = () => {
         <Route path="/myrequests" component={MyRequests} />
         <Route path="/about" component={About} />
         <Route path="/signup" component={SignUp} />
+        <Route path="/signin" component={SignIn} />
       </Layout>
     </Router>
   );

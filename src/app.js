@@ -9,17 +9,29 @@ import {
   createHttpLink,
   InMemoryCache,
 } from '@apollo/client';
+import { setContext } from 'apollo-link-context';
+import isLoggedIn from './appState';
 
 const cache = new InMemoryCache();
 const uri = process.env.API_URI;
 const httpLink = createHttpLink({ uri });
-
+// check for a token and return the headers to the context
+const authLink = setContext((_, { headers }) => {
+  return {
+    headers: {
+      ...headers,
+      authorization: localStorage.getItem('token') || '',
+    },
+  };
+});
 const client = new ApolloClient({
-  // link: authLink.concat(httpLink),
-  uri,
+  link: authLink.concat(httpLink),
   cache,
   connectToDevTools: true,
 });
+console.log('link:', client.link);
+// write the cache data after cache is reset
+// client.onResetStore(() => cache.writeData({ data }));
 
 // theme settings
 const theme = createMuiTheme({

@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { useMutation } from '@apollo/client';
+import isLoggedIn from '../appState';
 import Avatar from '@material-ui/core/Avatar';
 import { Link as RouterLink } from 'react-router-dom';
 import Button from '@material-ui/core/Button';
@@ -46,7 +47,7 @@ const useStyles = makeStyles(theme => ({
   },
 }));
 
-export default function SignUp() {
+export default function SignUp(props) {
   const classes = useStyles();
   const [values, setValues] = useState();
   const onChange = e => {
@@ -57,7 +58,18 @@ export default function SignUp() {
   };
 
   // mutation signUp
-  const [signUp, { loading, error, data }] = useMutation(SIGN_UP);
+  const [signUp, { loading, error, data }] = useMutation(SIGN_UP, {
+    onCompleted: data => {
+      // store the token
+      localStorage.setItem('token', data.signUp);
+      // set isLoggedIn to true
+      isLoggedIn(true);
+      // redirect the user to the homepage
+      props.history.push('/');
+      // reload page
+      props.history.go(0);
+    },
+  });
 
   const onSubmit = e => {
     e.preventDefault();
@@ -65,6 +77,8 @@ export default function SignUp() {
       variables: { ...values },
     });
   };
+  console.log('is logged in:', isLoggedIn());
+  console.log(localStorage.getItem('token'));
   return (
     <Container maxWidth="xs">
       <div className={classes.paper}>
