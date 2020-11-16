@@ -12,6 +12,8 @@ import clsx from 'clsx';
 import IconButton from '@material-ui/core/IconButton';
 import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
 import Container from '@material-ui/core/Container';
+import Add from '@material-ui/icons/Add';
+import Remove from '@material-ui/icons/Remove';
 
 const useStyles = makeStyles(theme => ({
   cardMedia: {
@@ -19,6 +21,7 @@ const useStyles = makeStyles(theme => ({
   },
   cardContent: {
     height: '80%',
+    padding: theme.spacing(2, 4, 0),
   },
   cardAction: {
     height: '20%',
@@ -33,6 +36,14 @@ const useStyles = makeStyles(theme => ({
   expandOpen: {
     transform: 'rotate(180deg)',
   },
+  reqsAction: {
+    height: '100%',
+    padding: theme.spacing(4, 1),
+    flexDirection: 'column',
+  },
+  reqButton: {
+    margin: theme.spacing(3, 'auto', 0),
+  },
 }));
 
 const RequestedCard = ({ book }) => {
@@ -42,11 +53,13 @@ const RequestedCard = ({ book }) => {
   };
 
   const classes = useStyles();
+
+  const reqByMe = book.req_by_me;
   return (
     <React.Fragment>
       <Card>
-        <Grid container spacing={0}>
-          <Grid item xs={3}>
+        <Grid container spacing={0} justify="center">
+          <Grid item xs={3} md={2}>
             <CardMedia
               className={classes.cardMedia}
               image={
@@ -55,7 +68,7 @@ const RequestedCard = ({ book }) => {
               title={`Gambar cover buku ${book.title}`}
             />
           </Grid>
-          <Grid item xs={6}>
+          <Grid item xs={6} md={4}>
             <CardContent className={classes.cardContent}>
               <Typography variant="subtitle1" component="h4">
                 {book.title}
@@ -71,24 +84,51 @@ const RequestedCard = ({ book }) => {
               </Typography>
             </CardContent>
             <CardActions className={classes.cardAction} disableSpacing>
-              {/* TODO: setState for toggle */}
-              <Button size="medium" color="primary">
-                Tambah Request
-              </Button>
               <IconButton
                 className={clsx(classes.expand, {
                   [classes.expandOpen]: expanded,
                 })}
                 onClick={handleExpandClick}
                 aria-expanded={expanded}
-                aria-label="show more"
+                aria-label="lihat deskripsi"
               >
                 <ExpandMoreIcon />
               </IconButton>
             </CardActions>
           </Grid>
-          <Grid item xs={3}>
-            request count
+          <Grid
+            container
+            xs={3}
+            md={2}
+            className={classes.reqsAction}
+            justify="center"
+          >
+            <Typography
+              variant="h3"
+              component="p"
+              align="center"
+              display="block"
+            >
+              {book.reqs_count}
+            </Typography>
+            <Typography
+              variant="caption"
+              component="p"
+              align="center"
+              display="block"
+            >
+              Total request
+            </Typography>
+            <Button
+              variant="contained"
+              aria-label={
+                reqByMe ? 'batalkan permintaan buku' : 'tambah permintaan buku'
+              }
+              color={reqByMe ? 'primary' : 'secondary'}
+              className={classes.reqButton}
+            >
+              {reqByMe ? <Remove /> : <Add />}
+            </Button>
           </Grid>
         </Grid>
         <Collapse in={expanded} timeout="auto" unmountOnExit>

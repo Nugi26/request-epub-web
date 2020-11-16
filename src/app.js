@@ -10,7 +10,6 @@ import {
   InMemoryCache,
 } from '@apollo/client';
 import { setContext } from 'apollo-link-context';
-import isLoggedIn from './appState';
 
 const cache = new InMemoryCache();
 const uri = process.env.API_URI;

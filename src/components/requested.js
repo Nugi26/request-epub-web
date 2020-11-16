@@ -19,17 +19,19 @@ const useStyles = makeStyles(theme => ({
   },
 }));
 
-export default function Requested({ books }) {
+export default function Requested({ books, showedIn }) {
   const classes = useStyles();
   return (
     <React.Fragment>
       <Container className={classes.cardGrid} maxWidth="md">
         <Typography gutterBottom variant="h5" component="h3">
-          Buku yang telah di-request
+          {showedIn === 'searchResult'
+            ? 'Buku yang telah di-request'
+            : 'Request Anda'}
         </Typography>
         <Grid
           container
-          spacing={4}
+          spacing={3}
           component="ul"
           justify="center"
           className={classes.gridContainer}

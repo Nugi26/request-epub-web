@@ -1,12 +1,13 @@
 import React from 'react';
+import ReqsFeed from '../components/ReqsFeed';
 import SearchBooks from '../components/SearchBooks';
-import isLoggedIn from '../appState';
 import SearchResult from '../components/SearchResult';
 
 const Home = () => {
   return (
     <React.Fragment>
       <SearchBooks />
+      <ReqsFeed />
     </React.Fragment>
   );
 };

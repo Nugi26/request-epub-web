@@ -27,7 +27,9 @@ const BookResult = ({ books }) => {
   const unrequested = books.filter(book => book.reqs_count === null);
   return (
     <React.Fragment>
-      {!!requested.length && <Requested books={requested} />}
+      {!!requested.length && (
+        <Requested books={requested} showedIn="searchResult" />
+      )}
       {!!unrequested.length && <Unrequested books={unrequested} />}
     </React.Fragment>
   );
