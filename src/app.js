@@ -28,7 +28,6 @@ const client = new ApolloClient({
   cache,
   connectToDevTools: true,
 });
-console.log('link:', client.link);
 // write the cache data after cache is reset
 // client.onResetStore(() => cache.writeData({ data }));
 

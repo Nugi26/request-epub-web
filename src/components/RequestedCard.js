@@ -11,7 +11,6 @@ import CardMedia from '@material-ui/core/CardMedia';
 import clsx from 'clsx';
 import IconButton from '@material-ui/core/IconButton';
 import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
-import Container from '@material-ui/core/Container';
 import Add from '@material-ui/icons/Add';
 import Remove from '@material-ui/icons/Remove';
 
@@ -42,7 +41,7 @@ const useStyles = makeStyles(theme => ({
     flexDirection: 'column',
   },
   reqButton: {
-    margin: theme.spacing(3, 'auto', 0),
+    margin: theme.spacing(2, 'auto', 0),
   },
 }));
 
@@ -58,7 +57,7 @@ const RequestedCard = ({ book }) => {
   return (
     <React.Fragment>
       <Card>
-        <Grid container spacing={0} justify="center">
+        <Grid container justify="center">
           <Grid item xs={3} md={2}>
             <CardMedia
               className={classes.cardMedia}
@@ -96,39 +95,42 @@ const RequestedCard = ({ book }) => {
               </IconButton>
             </CardActions>
           </Grid>
-          <Grid
-            container
-            xs={3}
-            md={2}
-            className={classes.reqsAction}
-            justify="center"
-          >
-            <Typography
-              variant="h3"
-              component="p"
-              align="center"
-              display="block"
+          <Grid item xs={3}>
+            <Grid
+              container
+              justify="center"
+              className={classes.reqsAction}
+              spacing={0}
             >
-              {book.reqs_count}
-            </Typography>
-            <Typography
-              variant="caption"
-              component="p"
-              align="center"
-              display="block"
-            >
-              Total request
-            </Typography>
-            <Button
-              variant="contained"
-              aria-label={
-                reqByMe ? 'batalkan permintaan buku' : 'tambah permintaan buku'
-              }
-              color={reqByMe ? 'primary' : 'secondary'}
-              className={classes.reqButton}
-            >
-              {reqByMe ? <Remove /> : <Add />}
-            </Button>
+              <Typography
+                variant="h3"
+                align="center"
+                display="block"
+                component="span"
+              >
+                {book.reqs_count}
+              </Typography>
+              <Typography
+                variant="caption"
+                component="span"
+                align="center"
+                display="block"
+              >
+                Total request
+              </Typography>
+              <Button
+                variant="contained"
+                aria-label={
+                  reqByMe
+                    ? 'batalkan permintaan buku'
+                    : 'tambah permintaan buku'
+                }
+                color={reqByMe ? 'primary' : 'secondary'}
+                className={classes.reqButton}
+              >
+                {reqByMe ? <Remove /> : <Add />}
+              </Button>
+            </Grid>
           </Grid>
         </Grid>
         <Collapse in={expanded} timeout="auto" unmountOnExit>

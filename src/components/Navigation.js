@@ -42,7 +42,7 @@ export default function Navigation(props) {
 
   return (
     <div className={classes.root}>
-      <AppBar position="static" component="nav">
+      <AppBar position="static" component="nav" color="transparent">
         <Tabs
           value={value}
           onChange={handleChange}

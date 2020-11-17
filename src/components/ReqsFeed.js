@@ -30,9 +30,6 @@ const ReqsFeed = () => {
   });
   return (
     <Container className={classes.root}>
-      <Typography variant="h6" component="h2">
-        Daftar Permintaan Buku
-      </Typography>
       <Grid container justify="center">
         <Grid item xs={12} sm={4} aria-live="polite">
           {loading && 'loading...'}

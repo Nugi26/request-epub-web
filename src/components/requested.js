@@ -16,6 +16,7 @@ const useStyles = makeStyles(theme => ({
   },
   gridContainer: {
     paddingTop: theme.spacing(3),
+    flexDirection: 'column',
   },
 }));
 
@@ -24,9 +25,15 @@ export default function Requested({ books, showedIn }) {
   return (
     <React.Fragment>
       <Container className={classes.cardGrid} maxWidth="md">
-        <Typography gutterBottom variant="h5" component="h3">
+        <Typography
+          gutterBottom
+          variant="h5"
+          component={showedIn === 'searchResult' ? 'h3' : 'h2'}
+        >
           {showedIn === 'searchResult'
             ? 'Buku yang telah di-request'
+            : showedIn === 'home'
+            ? 'Daftar Permintaan Buku'
             : 'Request Anda'}
         </Typography>
         <Grid
@@ -35,10 +42,11 @@ export default function Requested({ books, showedIn }) {
           component="ul"
           justify="center"
           className={classes.gridContainer}
+          wrap="nowrap"
         >
           {books.map(book => {
             return (
-              <Grid item key={book.id} xs={12} md={12} component="li">
+              <Grid item key={book.id} xs={12} component="li">
                 <RequestedCard book={book} />
               </Grid>
             );
