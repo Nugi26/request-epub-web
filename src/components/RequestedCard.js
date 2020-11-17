@@ -18,13 +18,6 @@ const useStyles = makeStyles(theme => ({
   cardMedia: {
     height: '100%',
   },
-  cardContent: {
-    height: '80%',
-    padding: theme.spacing(2, 4, 0),
-  },
-  cardAction: {
-    height: '20%',
-  },
   expand: {
     transform: 'rotate(0deg)',
     marginLeft: 'auto',
@@ -35,13 +28,8 @@ const useStyles = makeStyles(theme => ({
   expandOpen: {
     transform: 'rotate(180deg)',
   },
-  reqsAction: {
-    height: '100%',
-    padding: theme.spacing(4, 1),
-    flexDirection: 'column',
-  },
   reqButton: {
-    margin: theme.spacing(2, 'auto', 0),
+    margin: theme.spacing(3, 'auto', 0),
   },
 }));
 
@@ -57,7 +45,7 @@ const RequestedCard = ({ book }) => {
   return (
     <React.Fragment>
       <Card>
-        <Grid container justify="center">
+        <Grid container justify="center" alignItems="stretch">
           <Grid item xs={3} md={2}>
             <CardMedia
               className={classes.cardMedia}
@@ -67,75 +55,85 @@ const RequestedCard = ({ book }) => {
               title={`Gambar cover buku ${book.title}`}
             />
           </Grid>
-          <Grid item xs={6} md={4}>
-            <CardContent className={classes.cardContent}>
-              <Typography variant="subtitle1" component="h4">
-                {book.title}
-              </Typography>
-              {book.subtitle && (
-                <Typography variant="subtitle2" component="h5" noWrap>
-                  {book.subtitle}
+          <Grid
+            item
+            xs={6}
+            md={4}
+            container
+            direction="column"
+            justify="space-between"
+            alignItems="stretch"
+          >
+            <Grid item>
+              <CardContent>
+                <Typography variant="subtitle1" component="h4">
+                  {book.title}
                 </Typography>
-              )}
+                {book.subtitle && (
+                  <Typography variant="subtitle2" component="h5" noWrap>
+                    {book.subtitle}
+                  </Typography>
+                )}
 
-              <Typography variant="body2">
-                {!!book.authors && `Penulis: ${book.authors.join(', ')}.`}
-              </Typography>
-            </CardContent>
-            <CardActions className={classes.cardAction} disableSpacing>
-              <IconButton
-                className={clsx(classes.expand, {
-                  [classes.expandOpen]: expanded,
-                })}
-                onClick={handleExpandClick}
-                aria-expanded={expanded}
-                aria-label="lihat deskripsi"
-              >
-                <ExpandMoreIcon />
-              </IconButton>
-            </CardActions>
-          </Grid>
-          <Grid item xs={3}>
-            <Grid
-              container
-              justify="center"
-              className={classes.reqsAction}
-              spacing={0}
-            >
-              <Typography
-                variant="h3"
-                align="center"
-                display="block"
-                component="span"
-              >
-                {book.reqs_count}
-              </Typography>
-              <Typography
-                variant="caption"
-                component="span"
-                align="center"
-                display="block"
-              >
-                Total request
-              </Typography>
-              <Button
-                variant="contained"
-                aria-label={
-                  reqByMe
-                    ? 'batalkan permintaan buku'
-                    : 'tambah permintaan buku'
-                }
-                color={reqByMe ? 'primary' : 'secondary'}
-                className={classes.reqButton}
-              >
-                {reqByMe ? <Remove /> : <Add />}
-              </Button>
+                <Typography variant="body2">
+                  {!!book.authors && `Penulis: ${book.authors.join(', ')}.`}
+                </Typography>
+              </CardContent>
             </Grid>
+            <Grid item>
+              <CardActions>
+                <IconButton
+                  className={clsx(classes.expand, {
+                    [classes.expandOpen]: expanded,
+                  })}
+                  onClick={handleExpandClick}
+                  aria-expanded={expanded}
+                  aria-label="lihat deskripsi"
+                >
+                  <ExpandMoreIcon />
+                </IconButton>
+              </CardActions>
+            </Grid>
+          </Grid>
+          <Grid
+            item
+            xs={3}
+            md={2}
+            container
+            justify="center"
+            direction="column"
+          >
+            <Typography
+              variant="h3"
+              align="center"
+              display="block"
+              component="span"
+            >
+              {book.reqs_count}
+            </Typography>
+            <Typography
+              variant="caption"
+              component="span"
+              align="center"
+              display="block"
+            >
+              Total request
+            </Typography>
+            <Button
+              variant="contained"
+              aria-label={
+                reqByMe ? 'batalkan permintaan buku' : 'tambah permintaan buku'
+              }
+              color={reqByMe ? 'primary' : 'secondary'}
+              className={classes.reqButton}
+            >
+              {reqByMe ? <Remove /> : <Add />}
+            </Button>
           </Grid>
         </Grid>
         <Collapse in={expanded} timeout="auto" unmountOnExit>
           <CardContent>
-            <Typography variant="body2">
+            <Typography variant="body2" align="center">
               {book.description || 'Tidak ada deskripsi'}
             </Typography>
           </CardContent>

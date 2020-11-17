@@ -40,7 +40,6 @@ export default function Requested({ books, showedIn }) {
           container
           spacing={3}
           component="ul"
-          justify="center"
           className={classes.gridContainer}
           wrap="nowrap"
         >
