@@ -12,4 +12,16 @@ const SIGN_IN = gql`
   }
 `;
 
-export { SIGN_UP, SIGN_IN };
+const ADD_REQ = gql`
+  mutation addReq($book: BookInput!) {
+    addReq(book: $book)
+  }
+`;
+
+const DELETE_REQ = gql`
+  mutation deleteReq($bookId: ID!) {
+    deleteReq(bookId: $bookId)
+  }
+`;
+
+export { SIGN_UP, SIGN_IN, ADD_REQ, DELETE_REQ };

@@ -11,8 +11,7 @@ import CardMedia from '@material-ui/core/CardMedia';
 import clsx from 'clsx';
 import IconButton from '@material-ui/core/IconButton';
 import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
-import Add from '@material-ui/icons/Add';
-import Remove from '@material-ui/icons/Remove';
+import ReqButton from './ReqButton';
 
 const useStyles = makeStyles(theme => ({
   cardMedia: {
@@ -28,9 +27,6 @@ const useStyles = makeStyles(theme => ({
   expandOpen: {
     transform: 'rotate(180deg)',
   },
-  reqButton: {
-    margin: theme.spacing(3, 'auto', 0),
-  },
 }));
 
 const RequestedCard = ({ book }) => {
@@ -41,7 +37,6 @@ const RequestedCard = ({ book }) => {
 
   const classes = useStyles();
 
-  const reqByMe = book.req_by_me;
   return (
     <React.Fragment>
       <Card>
@@ -119,16 +114,7 @@ const RequestedCard = ({ book }) => {
             >
               Total request
             </Typography>
-            <Button
-              variant="contained"
-              aria-label={
-                reqByMe ? 'batalkan permintaan buku' : 'tambah permintaan buku'
-              }
-              color={reqByMe ? 'primary' : 'secondary'}
-              className={classes.reqButton}
-            >
-              {reqByMe ? <Remove /> : <Add />}
-            </Button>
+            <ReqButton book={book} />
           </Grid>
         </Grid>
         <Collapse in={expanded} timeout="auto" unmountOnExit>

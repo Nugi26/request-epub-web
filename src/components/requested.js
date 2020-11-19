@@ -46,7 +46,7 @@ export default function Requested({ books, showedIn }) {
           {books.map(book => {
             return (
               <Grid item key={book.id} xs={12} component="li">
-                <RequestedCard book={book} />
+                <RequestedCard book={book} showedIn={showedIn} />
               </Grid>
             );
           })}

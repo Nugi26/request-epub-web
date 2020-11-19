@@ -1,5 +1,4 @@
 import React from 'react';
-import isSignedIn from '../appState';
 import { useHistory, Link } from 'react-router-dom';
 import { makeStyles } from '@material-ui/core/styles';
 import AppBar from '@material-ui/core/AppBar';
@@ -7,7 +6,7 @@ import Toolbar from '@material-ui/core/Toolbar';
 import Typography from '@material-ui/core/Typography';
 import Button from '@material-ui/core/Button';
 import { useApolloClient } from '@apollo/client';
-import isLoggedIn from '../appState';
+import { isLoggedIn } from '../appState';
 
 const useStyles = makeStyles(theme => ({
   root: {
@@ -40,7 +39,7 @@ export default function Header() {
           <Typography variant="h6" className={classes.title} component="h1">
             Request EPUB untuk Tunanetra
           </Typography>
-          {!isSignedIn() && (
+          {!isLoggedIn() && (
             <React.Fragment>
               <Button component={Link} color="inherit" to="/signin">
                 Sign in
@@ -51,7 +50,7 @@ export default function Header() {
               </Button>
             </React.Fragment>
           )}
-          {isSignedIn() && (
+          {isLoggedIn() && (
             <Button color="inherit" onClick={onClick}>
               Logout
             </Button>

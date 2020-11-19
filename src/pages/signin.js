@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { useMutation } from '@apollo/client';
-import isLoggedIn from '../appState';
+import { isLoggedIn } from '../appState';
 import Avatar from '@material-ui/core/Avatar';
 import { Link as RouterLink } from 'react-router-dom';
 import Button from '@material-ui/core/Button';
