@@ -3,6 +3,7 @@ import ReactDOM from 'react-dom';
 import CssBaseline from '@material-ui/core/CssBaseline';
 import { ThemeProvider, createMuiTheme } from '@material-ui/core/styles';
 import Pages from './pages';
+
 import {
   ApolloClient,
   ApolloProvider,
@@ -11,7 +12,19 @@ import {
 } from '@apollo/client';
 import { setContext } from 'apollo-link-context';
 
-const cache = new InMemoryCache();
+const cache = new InMemoryCache({
+  typePolicies: {
+    User: {
+      fields: {
+        requests: {
+          merge(existing = [], incoming) {
+            return incoming;
+          },
+        },
+      },
+    },
+  },
+});
 const uri = process.env.API_URI;
 const httpLink = createHttpLink({ uri });
 // check for a token and return the headers to the context

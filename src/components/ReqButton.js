@@ -1,7 +1,12 @@
 import React from 'react';
 import { ADD_REQ, DELETE_REQ } from '../gql/mutation';
 import { ME, REQUESTS_FEED } from '../gql/query';
-import { useApolloClient, useMutation } from '@apollo/client';
+import {
+  useApolloClient,
+  useLazyQuery,
+  useMutation,
+  useQuery,
+} from '@apollo/client';
 import { makeStyles } from '@material-ui/core/styles';
 import Button from '@material-ui/core/Button';
 import CircularProgress from '@material-ui/core/CircularProgress';
@@ -15,7 +20,7 @@ const useStyles = makeStyles(theme => ({
   },
 }));
 
-const ReqButton = ({ book }) => {
+const ReqButton = ({ book, showedIn }) => {
   const classes = useStyles();
   // remove book props that shouldn't be recorded into db
   const {
@@ -26,39 +31,51 @@ const ReqButton = ({ book }) => {
     ...bookInputData
   } = book;
 
+  const updateHandler = action => {
+    return {
+      update(cache) {
+        const userData = cache.readQuery({
+          query: ME,
+        });
+
+        // update user's myRequests list
+        cache.writeQuery({
+          query: ME,
+          data: {
+            me: {
+              requests:
+                action === 'add'
+                  ? [...userData.me.requests, book]
+                  : userData.me.requests.filter(req => req.id !== book.id),
+            },
+          },
+        });
+
+        // update book state in cache
+        cache.modify({
+          id: cache.identify(book),
+          fields: {
+            reqs_count(existing) {
+              return action === 'add' ? existing + 1 : existing - 1;
+            },
+            req_by_me(currentState) {
+              return !currentState;
+            },
+          },
+        });
+      },
+    };
+  };
+
   const [
     add,
     { loading: loadingAdd, error: errorAdd, data: dataAdd },
-  ] = useMutation(ADD_REQ, {
-    refetchQueries: [
-      { query: ME },
-      {
-        query: REQUESTS_FEED,
-        variables: {
-          pageNumber: 1,
-          orderBy: 'reqs_count',
-          orderDirection: 'desc',
-        },
-      },
-    ],
-  });
+  ] = useMutation(ADD_REQ, updateHandler('add'));
 
   const [
     del,
     { loading: loadingDel, error: errorDel, data: dataDel },
-  ] = useMutation(DELETE_REQ, {
-    refetchQueries: [
-      { query: ME },
-      {
-        query: REQUESTS_FEED,
-        variables: {
-          pageNumber: 1,
-          orderBy: 'reqs_count',
-          orderDirection: 'desc',
-        },
-      },
-    ],
-  });
+  ] = useMutation(DELETE_REQ, updateHandler('del'));
 
   const addReq = () => {
     add({

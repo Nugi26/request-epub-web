@@ -29,7 +29,7 @@ const useStyles = makeStyles(theme => ({
   },
 }));
 
-const RequestedCard = ({ book }) => {
+const RequestedCard = ({ book, showedIn }) => {
   const [expanded, setExpanded] = React.useState(false);
   const handleExpandClick = () => {
     setExpanded(!expanded);
@@ -114,7 +114,7 @@ const RequestedCard = ({ book }) => {
             >
               Total request
             </Typography>
-            <ReqButton book={book} />
+            <ReqButton book={book} showedIn={showedIn} />
           </Grid>
         </Grid>
         <Collapse in={expanded} timeout="auto" unmountOnExit>
