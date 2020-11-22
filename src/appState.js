@@ -1,4 +1,26 @@
-import { makeVar } from '@apollo/client';
+import { InMemoryCache, makeVar } from '@apollo/client';
 
-const isLoggedIn = makeVar(!!localStorage.getItem('token'));
-export { isLoggedIn };
+export const isLoggedIn = makeVar(!!localStorage.getItem('token'));
+
+export const cache = new InMemoryCache({
+  typePolicies: {
+    User: {
+      fields: {
+        requests: {
+          merge(existing = [], incoming) {
+            return incoming;
+          },
+        },
+      },
+    },
+    Query: {
+      fields: {
+        isLoggedIn: {
+          read() {
+            return isLoggedIn();
+          },
+        },
+      },
+    },
+  },
+});

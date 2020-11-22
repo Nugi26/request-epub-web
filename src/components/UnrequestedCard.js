@@ -1,4 +1,5 @@
 import React from 'react';
+import ReqButton from './ReqButton';
 import Button from '@material-ui/core/Button';
 import Typography from '@material-ui/core/Typography';
 import Collapse from '@material-ui/core/Collapse';
@@ -64,10 +65,7 @@ const UnrequestedCard = ({ book }) => {
         </Typography>
       </CardContent>
       <CardActions>
-        {/* TODO: setState for toggle */}
-        <Button size="medium" color="primary">
-          Tambah Request
-        </Button>
+        <ReqButton book={book} />
         <IconButton
           className={clsx(classes.expand, {
             [classes.expandOpen]: expanded,

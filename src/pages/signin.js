@@ -67,7 +67,7 @@ export default function SignIn(props) {
       // redirect the user to the homepage
       props.history.push('/');
       // reload page
-      props.history.go(0);
+      // props.history.go(0);
     },
   });
 
@@ -77,6 +77,7 @@ export default function SignIn(props) {
       variables: { ...values },
     });
   };
+
   return (
     <Container maxWidth="xs">
       <div className={classes.paper}>

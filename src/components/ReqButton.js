@@ -2,6 +2,7 @@ import React from 'react';
 import { ADD_REQ, DELETE_REQ } from '../gql/mutation';
 import { ME, REQUESTS_FEED } from '../gql/query';
 import {
+  gql,
   useApolloClient,
   useLazyQuery,
   useMutation,
@@ -20,7 +21,7 @@ const useStyles = makeStyles(theme => ({
   },
 }));
 
-const ReqButton = ({ book, showedIn }) => {
+const ReqButton = ({ book }) => {
   const classes = useStyles();
   // remove book props that shouldn't be recorded into db
   const {
@@ -33,7 +34,7 @@ const ReqButton = ({ book, showedIn }) => {
 
   const updateHandler = action => {
     return {
-      update(cache) {
+      update(cache, mutationResult) {
         const userData = cache.readQuery({
           query: ME,
         });
@@ -77,13 +78,21 @@ const ReqButton = ({ book, showedIn }) => {
     { loading: loadingDel, error: errorDel, data: dataDel },
   ] = useMutation(DELETE_REQ, updateHandler('del'));
 
+  const { data: login } = useQuery(gql`
+    query isLoggedIn {
+      isLoggedIn
+    }
+  `);
+
   const addReq = () => {
+    if (!login.isLoggedIn) return console.log('belum log in');
     add({
       variables: { book: bookInputData },
     });
   };
 
   const delReq = () => {
+    if (!login.isLoggedIn) return console.log('belum log in');
     del({
       variables: { bookId: id },
     });

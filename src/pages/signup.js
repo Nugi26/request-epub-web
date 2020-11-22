@@ -67,7 +67,7 @@ export default function SignUp(props) {
       // redirect the user to the homepage
       props.history.push('/');
       // reload page
-      props.history.go(0);
+      // props.history.go(0);
     },
   });
 
@@ -77,8 +77,6 @@ export default function SignUp(props) {
       variables: { ...values },
     });
   };
-  console.log('is logged in:', isLoggedIn());
-  console.log(localStorage.getItem('token'));
   return (
     <Container maxWidth="xs">
       <div className={classes.paper}>

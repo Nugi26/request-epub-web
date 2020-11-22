@@ -5,7 +5,7 @@ import AppBar from '@material-ui/core/AppBar';
 import Toolbar from '@material-ui/core/Toolbar';
 import Typography from '@material-ui/core/Typography';
 import Button from '@material-ui/core/Button';
-import { useApolloClient } from '@apollo/client';
+import { gql, useQuery, useApolloClient } from '@apollo/client';
 import { isLoggedIn } from '../appState';
 
 const useStyles = makeStyles(theme => ({
@@ -20,6 +20,11 @@ const useStyles = makeStyles(theme => ({
 export default function Header() {
   const classes = useStyles();
   const client = useApolloClient();
+  const { data } = useQuery(gql`
+    query loginState {
+      isLoggedIn @client
+    }
+  `);
   const history = useHistory();
   const onClick = () => {
     // remove the token
@@ -27,7 +32,7 @@ export default function Header() {
     // clear the application's cache
     client.resetStore();
     // update isLoggedIn state
-    isLoggedIn(false);
+    isLoggedIn(!!localStorage.getItem('token'));
     // reload page
     history.go(0);
   };
@@ -39,7 +44,7 @@ export default function Header() {
           <Typography variant="h6" className={classes.title} component="h1">
             Request EPUB untuk Tunanetra
           </Typography>
-          {!isLoggedIn() && (
+          {!data.isLoggedIn && (
             <React.Fragment>
               <Button component={Link} color="inherit" to="/signin">
                 Sign in
@@ -50,7 +55,7 @@ export default function Header() {
               </Button>
             </React.Fragment>
           )}
-          {isLoggedIn() && (
+          {data.isLoggedIn && (
             <Button color="inherit" onClick={onClick}>
               Logout
             </Button>
