@@ -36,7 +36,7 @@ const useStyles = makeStyles(theme => ({
   },
 }));
 
-const UnrequestedCard = ({ book }) => {
+const UnrequestedCard = ({ book, showedIn }) => {
   const [expanded, setExpanded] = React.useState(false);
   const handleExpandClick = () => {
     setExpanded(!expanded);
@@ -65,7 +65,7 @@ const UnrequestedCard = ({ book }) => {
         </Typography>
       </CardContent>
       <CardActions>
-        <ReqButton book={book} />
+        <ReqButton book={book} showedIn={showedIn} />
         <IconButton
           className={clsx(classes.expand, {
             [classes.expandOpen]: expanded,

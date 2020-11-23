@@ -30,7 +30,9 @@ const BookResult = ({ books }) => {
       {!!requested.length && (
         <Requested books={requested} showedIn="searchResult" />
       )}
-      {!!unrequested.length && <Unrequested books={unrequested} />}
+      {!!unrequested.length && (
+        <Unrequested books={unrequested} showedIn="searchResult" />
+      )}
     </React.Fragment>
   );
 };

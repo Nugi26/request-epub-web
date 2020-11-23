@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { ADD_REQ, DELETE_REQ } from '../gql/mutation';
 import { ME, REQUESTS_FEED } from '../gql/query';
 import {
@@ -21,7 +21,8 @@ const useStyles = makeStyles(theme => ({
   },
 }));
 
-const ReqButton = ({ book }) => {
+const ReqButton = ({ book, bookId, showedIn }) => {
+  showedIn === 'searchResult' && console.log('book id', bookId);
   const classes = useStyles();
   // remove book props that shouldn't be recorded into db
   const {
@@ -32,11 +33,45 @@ const ReqButton = ({ book }) => {
     ...bookInputData
   } = book;
 
+  let outputId = id;
+
   const updateHandler = action => {
     return {
       update(cache, mutationResult) {
+        if (action === 'add' && reqs_count === 0) {
+          outputId = mutationResult.data.addReq;
+        }
+
         const userData = cache.readQuery({
           query: ME,
+        });
+
+        const reqsList = cache.readQuery({
+          query: REQUESTS_FEED,
+          variables: {
+            pageNumber: 1,
+            orderBy: 'reqs_count',
+            orderDirection: 'desc',
+          },
+        });
+
+        cache.writeQuery({
+          query: REQUESTS_FEED,
+          variables: {
+            pageNumber: 1,
+            orderBy: 'reqs_count',
+            orderDirection: 'desc',
+          },
+          data: {
+            requestsFeed: {
+              requests:
+                action === 'add' && reqs_count === 0
+                  ? [...reqsList.requestsFeed.requests, book]
+                  : reqsList.requestsFeed.requests.filter(
+                      req => req.id !== book.id
+                    ),
+            },
+          },
         });
 
         // update user's myRequests list
@@ -52,10 +87,18 @@ const ReqButton = ({ book }) => {
           },
         });
 
-        // update book state in cache
         cache.modify({
           id: cache.identify(book),
           fields: {
+            id(current) {
+              if (
+                showedIn === 'searchResult' &&
+                action === 'add' &&
+                reqs_count === 0
+              ) {
+                return outputId;
+              } else return current;
+            },
             reqs_count(existing) {
               return action === 'add' ? existing + 1 : existing - 1;
             },
@@ -65,6 +108,8 @@ const ReqButton = ({ book }) => {
           },
         });
       },
+      variables:
+        action === 'add' ? { book: bookInputData } : { bookId: outputId },
     };
   };
 
@@ -86,16 +131,16 @@ const ReqButton = ({ book }) => {
 
   const addReq = () => {
     if (!login.isLoggedIn) return console.log('belum log in');
-    add({
-      variables: { book: bookInputData },
-    });
+    //   add({
+    //     variables: { book: bookInputData },
+    //   });
+
+    add();
   };
 
   const delReq = () => {
     if (!login.isLoggedIn) return console.log('belum log in');
-    del({
-      variables: { bookId: id },
-    });
+    del();
   };
 
   return (

@@ -16,7 +16,7 @@ const useStyles = makeStyles(theme => ({
   },
 }));
 
-export default function Unrequested({ books }) {
+export default function Unrequested({ books, showedIn }) {
   const classes = useStyles();
 
   return (
@@ -29,7 +29,7 @@ export default function Unrequested({ books }) {
           {books.map(book => {
             return (
               <Grid item key={book.id} xs={12} sm={6} md={4} component="li">
-                <UnrequestedCard book={book} />
+                <UnrequestedCard book={book} showedIn={showedIn} />
               </Grid>
             );
           })}

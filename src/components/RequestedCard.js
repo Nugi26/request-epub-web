@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import Grid from '@material-ui/core/Grid';
 import Button from '@material-ui/core/Button';
 import Typography from '@material-ui/core/Typography';
@@ -36,6 +36,9 @@ const RequestedCard = ({ book, showedIn }) => {
   };
 
   const classes = useStyles();
+
+  const [bookId, setBookId] = useState(book.id);
+  const handleId = newId => setBookId(newId);
 
   return (
     <React.Fragment>
@@ -114,7 +117,12 @@ const RequestedCard = ({ book, showedIn }) => {
             >
               Total request
             </Typography>
-            <ReqButton book={book} showedIn={showedIn} />
+            <ReqButton
+              book={book}
+              showedIn={showedIn}
+              bookId={bookId}
+              setBookId={newId => setBookId(newId)}
+            />
           </Grid>
         </Grid>
         <Collapse in={expanded} timeout="auto" unmountOnExit>
