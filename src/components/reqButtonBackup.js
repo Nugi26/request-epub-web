@@ -49,35 +49,33 @@ const ReqButton = ({ book, bookId, showedIn }) => {
           query: ME,
         });
 
-        if (showedIn === 'home' || 'searchResult') {
-          const reqsList = cache.readQuery({
-            query: REQUESTS_FEED,
-            variables: {
-              pageNumber: 1,
-              orderBy: 'reqs_count',
-              orderDirection: 'desc',
-            },
-          });
+        const reqsList = cache.readQuery({
+          query: REQUESTS_FEED,
+          variables: {
+            pageNumber: 1,
+            orderBy: 'reqs_count',
+            orderDirection: 'desc',
+          },
+        });
 
-          cache.writeQuery({
-            query: REQUESTS_FEED,
-            variables: {
-              pageNumber: 1,
-              orderBy: 'reqs_count',
-              orderDirection: 'desc',
+        cache.writeQuery({
+          query: REQUESTS_FEED,
+          variables: {
+            pageNumber: 1,
+            orderBy: 'reqs_count',
+            orderDirection: 'desc',
+          },
+          data: {
+            requestsFeed: {
+              requests:
+                action === 'add' && reqs_count === 0
+                  ? [...reqsList.requestsFeed.requests, book]
+                  : reqsList.requestsFeed.requests.filter(
+                      req => req.id !== book.id
+                    ),
             },
-            data: {
-              requestsFeed: {
-                requests:
-                  action === 'add' && reqs_count === 0
-                    ? [...reqsList.requestsFeed.requests, book]
-                    : reqsList.requestsFeed.requests.filter(
-                        req => req.id !== book.id
-                      ),
-              },
-            },
-          });
-        }
+          },
+        });
 
         // update user's myRequests list
         cache.writeQuery({
