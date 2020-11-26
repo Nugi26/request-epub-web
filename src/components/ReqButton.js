@@ -1,5 +1,4 @@
 import React, { useState } from 'react';
-import { outputId } from '../appState';
 import { ADD_REQ, DELETE_REQ } from '../gql/mutation';
 import { ME, REQUESTS_FEED } from '../gql/query';
 import {
@@ -37,14 +36,6 @@ const ReqButton = ({ book, bookId, showedIn }) => {
   const updateHandler = action => {
     return {
       update(cache, mutationResult) {
-        if (
-          showedIn === 'searchResult' &&
-          action === 'add' &&
-          reqs_count === 0
-        ) {
-          outputId(mutationResult.data.addReq);
-        }
-
         const userData = cache.readQuery({
           query: ME,
         });
@@ -80,6 +71,7 @@ const ReqButton = ({ book, bookId, showedIn }) => {
         }
 
         // update user's myRequests list
+        /*
         cache.writeQuery({
           query: ME,
           data: {
@@ -91,7 +83,7 @@ const ReqButton = ({ book, bookId, showedIn }) => {
             },
           },
         });
-
+        */
         cache.modify({
           id: cache.identify(book),
           fields: {
@@ -113,14 +105,7 @@ const ReqButton = ({ book, bookId, showedIn }) => {
           },
         });
       },
-      variables:
-        action === 'add'
-          ? { book: bookInputData }
-          : action === 'del' &&
-            showedIn === 'searchResult' &&
-            book.id === book.gbook_id
-          ? { bookId: outputId() }
-          : { bookId: id },
+      variables: action === 'add' ? { book: bookInputData } : { bookId: id },
     };
   };
 
