@@ -71,7 +71,6 @@ const ReqButton = ({ book, bookId, showedIn }) => {
         }
 
         // update user's myRequests list
-        /*
         cache.writeQuery({
           query: ME,
           data: {
@@ -83,7 +82,6 @@ const ReqButton = ({ book, bookId, showedIn }) => {
             },
           },
         });
-        */
         cache.modify({
           id: cache.identify(book),
           fields: {

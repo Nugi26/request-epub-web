@@ -1,10 +1,18 @@
 import React from 'react';
-import { ME } from '../gql/query';
+import { REQUESTS_FEED, ME } from '../gql/query';
 import { useQuery } from '@apollo/client';
 import Requested from '../components/requested';
 
 const MyRequests = () => {
   const { data, loading, error } = useQuery(ME);
+  const { data: reqsFeedData } = useQuery(REQUESTS_FEED, {
+    variables: {
+      // TODO: put variables into appState
+      pageNumber: 1,
+      orderBy: 'reqs_count',
+      orderDirection: 'desc',
+    },
+  });
   return (
     <React.Fragment>
       {/* TODO: use mui alert component! */}
