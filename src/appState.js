@@ -1,8 +1,11 @@
 import { InMemoryCache, makeVar } from '@apollo/client';
 
 export const isLoggedIn = makeVar(!!localStorage.getItem('token'));
-
-export const outputId = makeVar();
+export const pageState = makeVar({
+  pageNumber: 1,
+  orderBy: 'reqs_count',
+  orderDirection: 'desc',
+});
 
 export const cache = new InMemoryCache({
   typePolicies: {
@@ -21,7 +24,7 @@ export const cache = new InMemoryCache({
     Query: {
       fields: {
         requestsFeed: {
-          keyArgs: ['pageNumber', 'orderBy', 'orderDirection'],
+          keyArgs: false,
           merge: false,
         },
         isLoggedIn: {

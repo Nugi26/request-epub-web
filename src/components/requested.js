@@ -20,7 +20,7 @@ const useStyles = makeStyles(theme => ({
   },
 }));
 
-export default function Requested({ books, showedIn }) {
+export default function Requested({ books, userData, showedIn }) {
   const classes = useStyles();
   return (
     <React.Fragment>
@@ -46,7 +46,11 @@ export default function Requested({ books, showedIn }) {
           {books.map(book => {
             return (
               <Grid item key={book.id} xs={12} component="li">
-                <RequestedCard book={book} showedIn={showedIn} />
+                <RequestedCard
+                  book={book}
+                  showedIn={showedIn}
+                  userData={userData}
+                />
               </Grid>
             );
           })}

@@ -20,7 +20,13 @@ const MyRequests = () => {
         {loading && 'loading'}
         {error && `${error.message}`}
       </div>
-      {data && <Requested books={data.me.requests} showedIn="myRequests" />}
+      {data && (
+        <Requested
+          books={data.me.requests}
+          userData={data.me}
+          showedIn="myRequests"
+        />
+      )}
     </React.Fragment>
   );
 };

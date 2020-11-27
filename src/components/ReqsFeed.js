@@ -7,6 +7,7 @@ import { REQUESTS_FEED } from '../gql/query';
 import Grid from '@material-ui/core/Grid';
 import Requested from './requested';
 import BasicPagination from './Pagination';
+import { pageState } from '../appState';
 
 const useStyles = makeStyles(theme => ({
   root: {
@@ -22,15 +23,13 @@ const useStyles = makeStyles(theme => ({
 const ReqsFeed = () => {
   const classes = useStyles();
   // TODO: store these into appState
-  const [params, setParams] = useState({
-    pageNumber: 1,
-    orderBy: 'reqs_count',
-    orderDirection: 'desc',
-  });
   const { data, loading, error, refetch } = useQuery(REQUESTS_FEED, {
-    variables: { ...params },
+    variables: {
+      pageNumber: 1,
+      orderBy: 'reqs_count',
+      orderDirection: 'desc',
+    },
   });
-  console.log(data);
   return (
     <Container className={classes.root}>
       <Grid container justify="center">
@@ -44,23 +43,11 @@ const ReqsFeed = () => {
         <Grid container justify="center">
           <BasicPagination
             totalReqs={data.requestsFeed.totalReqs}
-            refetch={() => refetch()}
-            setParams={() => setParams()}
-            params={params}
+            refetch={() => refetch(pageState())}
           />
         </Grid>
       )}
-      <button
-        onClick={() =>
-          refetch({
-            pageNumber: 2,
-            orderBy: 'reqs_count',
-            orderDirection: 'desc',
-          })
-        }
-      >
-        test
-      </button>
+      <button>test</button>
     </Container>
   );
 };

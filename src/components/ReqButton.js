@@ -21,8 +21,7 @@ const useStyles = makeStyles(theme => ({
   },
 }));
 
-const ReqButton = ({ book, bookId, showedIn }) => {
-  showedIn === 'searchResult' && console.log('book id', bookId);
+const ReqButton = ({ book, showedIn }) => {
   const classes = useStyles();
   // remove book props that shouldn't be recorded into db
   const {
@@ -39,7 +38,6 @@ const ReqButton = ({ book, bookId, showedIn }) => {
         const userData = cache.readQuery({
           query: ME,
         });
-
         if (showedIn === 'home' || 'searchResult') {
           const reqsList = cache.readQuery({
             query: REQUESTS_FEED,
