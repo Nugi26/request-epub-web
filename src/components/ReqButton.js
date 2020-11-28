@@ -34,7 +34,7 @@ const ReqButton = ({ book, showedIn }) => {
 
   const updateHandler = action => {
     return {
-      update(cache, mutationResult) {
+      update(cache) {
         const userData = cache.readQuery({
           query: ME,
         });

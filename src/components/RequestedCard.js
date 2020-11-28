@@ -27,6 +27,9 @@ const useStyles = makeStyles(theme => ({
   expandOpen: {
     transform: 'rotate(180deg)',
   },
+  cardContent: {
+    paddingRight: theme.spacing(1),
+  },
 }));
 
 const RequestedCard = ({ book, userData, showedIn }) => {
@@ -56,7 +59,6 @@ const RequestedCard = ({ book, userData, showedIn }) => {
           <Grid
             item
             xs={6}
-            md={4}
             container
             direction="column"
             justify="space-between"
@@ -68,7 +70,7 @@ const RequestedCard = ({ book, userData, showedIn }) => {
                   {book.title}
                 </Typography>
                 {book.subtitle && (
-                  <Typography variant="subtitle2" component="h5" noWrap>
+                  <Typography variant="subtitle2" component="h5">
                     {book.subtitle}
                   </Typography>
                 )}
@@ -93,14 +95,7 @@ const RequestedCard = ({ book, userData, showedIn }) => {
               </CardActions>
             </Grid>
           </Grid>
-          <Grid
-            item
-            xs={3}
-            md={2}
-            container
-            justify="center"
-            direction="column"
-          >
+          <Grid item xs={3} container justify="center" direction="column">
             <Typography
               variant="h3"
               align="center"

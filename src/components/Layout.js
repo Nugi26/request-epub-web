@@ -8,7 +8,7 @@ const Layout = ({ children }) => {
     <React.Fragment>
       <Header />
       <Navigation />
-      <Container>
+      <Container maxWidth="md">
         <main>{children}</main>
       </Container>
     </React.Fragment>

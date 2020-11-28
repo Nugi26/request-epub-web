@@ -10,8 +10,8 @@ const useStyles = makeStyles(theme => ({
     marginRight: theme.spacing(2),
   },
   cardGrid: {
-    paddingTop: theme.spacing(6),
-    paddingBottom: theme.spacing(6),
+    paddingTop: theme.spacing(2),
+    paddingBottom: theme.spacing(2),
     listStyleType: 'none',
   },
   gridContainer: {
@@ -24,18 +24,12 @@ export default function Requested({ books, userData, showedIn }) {
   const classes = useStyles();
   return (
     <React.Fragment>
-      <Container className={classes.cardGrid} maxWidth="md">
-        <Typography
-          gutterBottom
-          variant="h5"
-          component={showedIn === 'searchResult' ? 'h3' : 'h2'}
-        >
-          {showedIn === 'searchResult'
-            ? 'Buku yang telah di-request'
-            : showedIn === 'home'
-            ? 'Daftar Permintaan Buku'
-            : 'Request Anda'}
-        </Typography>
+      <Container className={classes.cardGrid} maxWidth="lg">
+        {showedIn === 'searchResult' && (
+          <Typography gutterBottom variant="h5" component="h3">
+            Buku yang telah di-request
+          </Typography>
+        )}
         <Grid
           container
           spacing={3}
