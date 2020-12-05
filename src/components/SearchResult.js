@@ -40,7 +40,6 @@ const BookResult = ({ books, totalItems, runQuery }) => {
       {!!unrequested.length && (
         <Unrequested books={unrequested} showedIn="searchResult" />
       )}
-      <SearchResultPagination totalItems={30} queryPage={runQuery} />
     </React.Fragment>
   );
 };

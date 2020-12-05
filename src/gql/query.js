@@ -1,12 +1,8 @@
 import { gql } from '@apollo/client';
 
 const SEARCH_BOOK = gql`
-  query searchBook($keywords: String!, $startIndex: Int, $maxResults: Int) {
-    searchBook(
-      keywords: $keywords
-      startIndex: $startIndex
-      maxResults: $maxResults
-    ) {
+  query searchBook($keywords: String!, $startIndex: Int) {
+    searchBook(keywords: $keywords, startIndex: $startIndex) {
       totalItems
       items {
         id

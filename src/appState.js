@@ -7,6 +7,8 @@ export const pageState = makeVar({
   orderDirection: 'desc',
 });
 
+export const lastKeywords = makeVar('');
+
 export const cache = new InMemoryCache({
   typePolicies: {
     Book: {

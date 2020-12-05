@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { pageState } from '../appState';
+import { lastKeywords, pageState } from '../appState';
 import Pagination from '@material-ui/lab/Pagination';
 import { useLazyQuery } from '@apollo/client';
 import { REQUESTS_FEED } from '../gql/query';
@@ -29,18 +29,23 @@ export const BasicPagination = ({ totalItems, refetch }) => {
   );
 };
 
-export const SearchResultPagination = ({ totalItems, queryPage }) => {
+export const SearchResultPagination = ({
+  totalItems,
+  queryPage,
+  keywordsChanged,
+}) => {
   const totalPage = Math.ceil(totalItems / 10);
   const [page, setPage] = useState(1);
   const handleChange = (event, value) => {
     setPage(value);
     queryPage(value);
   };
+
   return (
     <Grid container justify="center">
       <Pagination
-        count={10}
-        page={page}
+        count={totalPage}
+        page={keywordsChanged ? 1 : page}
         color="secondary"
         size="large"
         onChange={handleChange}
