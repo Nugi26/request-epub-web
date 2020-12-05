@@ -5,7 +5,7 @@ import Requested from './requested';
 import Unrequested from './unrequested';
 import { SearchResultPagination } from './Pagination';
 
-const SearchResult = ({ result, data, runQuery }) => {
+const SearchResult = ({ result, data, totalItems }) => {
   let books;
   if (data) books = data.searchBook.items;
   return (
@@ -14,22 +14,16 @@ const SearchResult = ({ result, data, runQuery }) => {
         <Paper aria-live="polite">
           {result && result.loading && 'loading....'}
           {result && result.error && 'Buku tidak ditemukan'}{' '}
-          {data && `ditemukan ${data.searchBook.totalItems} hasil`}
+          {data && `ditemukan ${totalItems} hasil`}
         </Paper>
       </Grid>
-      {data && (
-        <BookResult
-          books={books}
-          totalItems={data.searchBook.totalItems}
-          runQuery={runQuery}
-        />
-      )}
+      {data && <BookResult books={books} />}
     </React.Fragment>
   );
 };
 export default SearchResult;
 
-const BookResult = ({ books, totalItems, runQuery }) => {
+const BookResult = ({ books }) => {
   let requested = books.filter(book => book.reqs_count !== 0);
   let unrequested = books.filter(book => book.reqs_count === 0);
   return (

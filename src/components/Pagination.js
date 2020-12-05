@@ -46,6 +46,7 @@ export const SearchResultPagination = ({
     <Grid container justify="center">
       <Pagination
         count={totalPage}
+        boundaryCount={3}
         page={keywordsChanged ? 1 : page}
         color="secondary"
         size="large"

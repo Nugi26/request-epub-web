@@ -8,7 +8,7 @@ import SearchIcon from '@material-ui/icons/Search';
 import Container from '@material-ui/core/Container';
 import SearchResult from './SearchResult';
 import { SearchResultPagination } from './Pagination';
-import { lastKeywords } from '../appState';
+import { fixedTotalItems, lastKeywords } from '../appState';
 
 const useStyles = makeStyles(theme => ({
   search: {
@@ -40,9 +40,6 @@ const SearchBooks = () => {
   // run query
   const runQuery = (startIndex = 0) => {
     if (!keywords) return null;
-    // initiate lastKeywords value
-    if (lastKeywords() === '') lastKeywords(keywords);
-
     // check if keywords are changed
     if (keywords !== lastKeywords()) {
       setKeywordsChanged(true);
@@ -56,6 +53,10 @@ const SearchBooks = () => {
 
   const { searchBook } = { ...data };
   const { totalItems } = { ...searchBook };
+  // set fixed totalItems results
+  // because gbook api always returns different totalItems on paginated query, and is always bigger approx. about 60%
+  if (keywordsChanged) fixedTotalItems(totalItems * 0.5);
+  console.log(fixedTotalItems());
 
   const onKeyUp = e => {
     if (e.keyCode === 13) {
@@ -83,10 +84,10 @@ const SearchBooks = () => {
       <SearchResult
         result={{ loading, error }}
         data={data}
-        runQuery={runQuery}
+        totalItems={fixedTotalItems()}
       />
       <SearchResultPagination
-        totalItems={totalItems}
+        totalItems={fixedTotalItems()}
         queryPage={runQuery}
         keywords={keywords}
         keywordsChanged={keywordsChanged}
