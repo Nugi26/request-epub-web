@@ -35,12 +35,14 @@ const SearchBooks = () => {
   const [querySearch, { loading, error, data }] = useLazyQuery(SEARCH_BOOK);
 
   // run query
-  const runQuery = () => {
+  const runQuery = (startIndex = 0) => {
     if (!keywords) return null;
     querySearch({
-      variables: { keywords },
+      variables: { keywords, startIndex },
     });
   };
+
+  const changePage = () => {};
 
   const onKeyUp = e => {
     if (e.keyCode === 13) {
@@ -65,7 +67,11 @@ const SearchBooks = () => {
           <SearchIcon />
         </IconButton>
       </Container>
-      <SearchResult result={{ loading, error }} data={data} />
+      <SearchResult
+        result={{ loading, error }}
+        data={data}
+        runQuery={runQuery}
+      />
     </React.Fragment>
   );
 };

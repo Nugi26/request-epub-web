@@ -10,7 +10,7 @@ export const pageState = makeVar({
 export const cache = new InMemoryCache({
   typePolicies: {
     Book: {
-      // when any fields other than keyFileds are changed., the object will be overwritten.
+      // when any fields other than keyFields are changed., the object will be overwritten.
       // So, whenever book.id is changed because of mutation, the object will be the same as before, but with different book.id
       keyFields: ['gbook_id'],
     },
@@ -26,6 +26,9 @@ export const cache = new InMemoryCache({
         requestsFeed: {
           keyArgs: false,
           merge: false,
+        },
+        searchBook: {
+          keyArgs: ['keywords', 'startIndex'],
         },
         isLoggedIn: {
           read() {

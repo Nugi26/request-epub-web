@@ -10,7 +10,7 @@ import MenuItem from '@material-ui/core/MenuItem';
 import FormControl from '@material-ui/core/FormControl';
 import Select from '@material-ui/core/Select';
 import Requested from './requested';
-import BasicPagination from './Pagination';
+import { BasicPagination } from './Pagination';
 import { pageState } from '../appState';
 
 const useStyles = makeStyles(theme => ({
@@ -74,12 +74,10 @@ const ReqsFeed = () => {
 
       {/* pagination */}
       {data && data.requestsFeed.totalReqs > 10 && (
-        <Grid container justify="center">
-          <BasicPagination
-            totalReqs={data.requestsFeed.totalReqs}
-            refetch={() => refetch(pageState())}
-          />
-        </Grid>
+        <BasicPagination
+          totalItems={data.requestsFeed.totalReqs}
+          refetch={() => refetch(pageState())}
+        />
       )}
     </React.Fragment>
   );

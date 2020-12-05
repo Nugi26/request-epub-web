@@ -3,8 +3,9 @@ import Grid from '@material-ui/core/Grid';
 import Paper from '@material-ui/core/Paper';
 import Requested from './requested';
 import Unrequested from './unrequested';
+import { SearchResultPagination } from './Pagination';
 
-const SearchResult = ({ result, data }) => {
+const SearchResult = ({ result, data, runQuery }) => {
   let books;
   if (data) books = data.searchBook.items;
   return (
@@ -16,13 +17,19 @@ const SearchResult = ({ result, data }) => {
           {data && `ditemukan ${data.searchBook.totalItems} hasil`}
         </Paper>
       </Grid>
-      {data && <BookResult books={books} />}
+      {data && (
+        <BookResult
+          books={books}
+          totalItems={data.searchBook.totalItems}
+          runQuery={runQuery}
+        />
+      )}
     </React.Fragment>
   );
 };
 export default SearchResult;
 
-const BookResult = ({ books }) => {
+const BookResult = ({ books, totalItems, runQuery }) => {
   let requested = books.filter(book => book.reqs_count !== 0);
   let unrequested = books.filter(book => book.reqs_count === 0);
   return (
@@ -33,6 +40,7 @@ const BookResult = ({ books }) => {
       {!!unrequested.length && (
         <Unrequested books={unrequested} showedIn="searchResult" />
       )}
+      <SearchResultPagination totalItems={30} queryPage={runQuery} />
     </React.Fragment>
   );
 };
