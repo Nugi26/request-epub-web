@@ -38,7 +38,8 @@ export const SearchResultPagination = ({
   const [page, setPage] = useState(1);
   const handleChange = (event, value) => {
     setPage(value);
-    queryPage(value);
+    const startIndex = value * 10;
+    queryPage(startIndex);
   };
 
   return (

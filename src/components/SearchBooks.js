@@ -43,6 +43,7 @@ const SearchBooks = () => {
     // initiate lastKeywords value
     if (lastKeywords() === '') lastKeywords(keywords);
 
+    // check if keywords are changed
     if (keywords !== lastKeywords()) {
       setKeywordsChanged(true);
       lastKeywords(keywords);
