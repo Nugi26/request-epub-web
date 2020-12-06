@@ -42,6 +42,9 @@ export const SearchResultPagination = ({
     queryPage(startIndex);
   };
 
+  // don't show pagination if totalItems < 10
+  if (totalItems < 10) return <React.Fragment></React.Fragment>;
+
   return (
     <Grid container justify="center">
       <Pagination

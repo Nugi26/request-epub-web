@@ -1,13 +1,13 @@
 import React from 'react';
 import Typography from '@material-ui/core/Typography';
 import Container from '@material-ui/core/Container';
+import FormControl from '@material-ui/core/FormControl';
 import { makeStyles } from '@material-ui/core/styles';
 import { useQuery } from '@apollo/client';
 import { REQUESTS_FEED } from '../gql/query';
 import Grid from '@material-ui/core/Grid';
 import InputLabel from '@material-ui/core/InputLabel';
 import MenuItem from '@material-ui/core/MenuItem';
-import FormControl from '@material-ui/core/FormControl';
 import Select from '@material-ui/core/Select';
 import Requested from './requested';
 import { BasicPagination } from './Pagination';
@@ -54,20 +54,21 @@ const ReqsFeed = () => {
 
       {/* sort options */}
       <Grid container justify="center">
-        <InputLabel variant="outlined" id="urutkan">
-          Urutkan
-        </InputLabel>
-        <Select
-          labelId="urutkan"
-          id="sort"
-          value={pageState().orderBy}
-          onChange={sortOnChange}
-          variant="outlined"
-          autoWidth
-        >
-          <MenuItem value="reqs_count">Permintaan terbanyak</MenuItem>
-          <MenuItem value="id">Permintaan terbaru</MenuItem>
-        </Select>
+        <FormControl>
+          <InputLabel htmlFor="sort">Urutkan</InputLabel>
+          <Select
+            native
+            value={pageState().orderBy}
+            onChange={sortOnChange}
+            inputProps={{
+              name: 'sort',
+              id: 'sort',
+            }}
+          >
+            <option value="reqs_count">Permintaan terbanyak</option>
+            <option value="id">Permintaan terbaru</option>
+          </Select>
+        </FormControl>
       </Grid>
 
       {data && <Requested books={data.requestsFeed.requests} showedIn="home" />}
