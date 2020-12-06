@@ -8,6 +8,7 @@ export const pageState = makeVar({
 });
 
 export const lastKeywords = makeVar('');
+
 export const fixedTotalItems = makeVar(null);
 
 export const cache = new InMemoryCache({

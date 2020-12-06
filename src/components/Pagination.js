@@ -8,7 +8,7 @@ import Grid from '@material-ui/core/Grid';
 
 const useStyles = makeStyles(theme => ({
   pagination: {
-    paddingBottom: theme.spacing(5),
+    marginBottom: theme.spacing(5),
   },
 }));
 

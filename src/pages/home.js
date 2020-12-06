@@ -4,6 +4,8 @@ import { ME } from '../gql/query';
 import ReqsFeed from '../components/ReqsFeed';
 import SearchBooks from '../components/SearchBooks';
 import SearchResult from '../components/SearchResult';
+import Toast from '../components/Toast';
+import { showToastMessage } from '../appState';
 
 const Home = () => {
   const { data: isLoggedIn } = useQuery(gql`

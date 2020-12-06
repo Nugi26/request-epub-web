@@ -14,6 +14,7 @@ import CircularProgress from '@material-ui/core/CircularProgress';
 import Typography from '@material-ui/core/Typography';
 import Add from '@material-ui/icons/Add';
 import Remove from '@material-ui/icons/Remove';
+import Toast from './Toast';
 
 const useStyles = makeStyles(theme => ({
   reqButton: {
@@ -102,6 +103,9 @@ const ReqButton = ({ book, showedIn }) => {
         });
       },
       variables: action === 'add' ? { book: bookInputData } : { bookId: id },
+      onCompleted: () => {
+        setStatus(action === 'add' ? { added: true } : { deleted: true });
+      },
     };
   };
 
@@ -121,12 +125,10 @@ const ReqButton = ({ book, showedIn }) => {
     }
   `);
 
+  const [status, setStatus] = useState();
+
   const addReq = () => {
     if (!login.isLoggedIn) return console.log('belum log in');
-    //   add({
-    //     variables: { book: bookInputData },
-    //   });
-
     add();
   };
 
@@ -151,6 +153,12 @@ const ReqButton = ({ book, showedIn }) => {
           <CircularProgress color="inherit" size={14} />
         )}
       </Button>
+      {status && status.added && (
+        <Toast message="Permintaan berhasil ditambahkan" state={true} />
+      )}
+      {status && status.deleted && (
+        <Toast message="Permintaan dibatalkan" state={true} />
+      )}
     </React.Fragment>
   );
 };
