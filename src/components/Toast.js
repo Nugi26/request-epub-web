@@ -1,6 +1,7 @@
 import React from 'react';
 import Snackbar from '@material-ui/core/Snackbar';
 import MuiAlert from '@material-ui/lab/Alert';
+import { toastState } from '../appState';
 
 function Alert(props) {
   return <MuiAlert elevation={6} variant="filled" {...props} />;
@@ -13,8 +14,8 @@ export default function Toast({ message, state }) {
   const handleClose = (event, reason) => {
     if (reason === 'timeout') {
       setOpen(false);
+      toastState(false);
     }
-    // setOpen(false);
   };
 
   return (
@@ -28,9 +29,7 @@ export default function Toast({ message, state }) {
         autoHideDuration={4000}
         onClose={handleClose}
       >
-        <Alert onClose={handleClose} severity="success">
-          {message}
-        </Alert>
+        <Alert severity="success">{message}</Alert>
       </Snackbar>
     </div>
   );
