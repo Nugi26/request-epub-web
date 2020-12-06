@@ -1,11 +1,19 @@
 import React, { useState } from 'react';
-import { lastKeywords, pageState } from '../appState';
+import { makeStyles } from '@material-ui/core/styles';
+import { pageState } from '../appState';
 import Pagination from '@material-ui/lab/Pagination';
 import { useLazyQuery } from '@apollo/client';
 import { REQUESTS_FEED } from '../gql/query';
 import Grid from '@material-ui/core/Grid';
 
+const useStyles = makeStyles(theme => ({
+  pagination: {
+    paddingBottom: theme.spacing(5),
+  },
+}));
+
 export const BasicPagination = ({ totalItems, refetch }) => {
+  const classes = useStyles();
   const totalPage = Math.ceil(totalItems / 10);
   const [feed, { loading, data, error }] = useLazyQuery(REQUESTS_FEED);
   const handleChange = (event, value) => {
@@ -17,7 +25,7 @@ export const BasicPagination = ({ totalItems, refetch }) => {
     refetch();
   };
   return (
-    <Grid container justify="center">
+    <Grid className={classes.pagination} container justify="center">
       <Pagination
         size="large"
         count={totalPage}
@@ -34,6 +42,7 @@ export const SearchResultPagination = ({
   queryPage,
   keywordsChanged,
 }) => {
+  const classes = useStyles();
   const totalPage = Math.ceil(totalItems / 10);
   const [page, setPage] = useState(1);
   const handleChange = (event, value) => {
@@ -46,7 +55,7 @@ export const SearchResultPagination = ({
   if (totalItems < 10) return <React.Fragment></React.Fragment>;
 
   return (
-    <Grid container justify="center">
+    <Grid className={classes.pagination} container justify="center">
       <Pagination
         count={totalPage}
         boundaryCount={3}
