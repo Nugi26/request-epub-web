@@ -11,17 +11,9 @@ import { SearchResultPagination } from './Pagination';
 import { fixedTotalItems, lastKeywords } from '../appState';
 
 const useStyles = makeStyles(theme => ({
-  search: {
-    padding: 0,
-    margin: 0,
-    borderRadius: 0,
-    width: '80%',
-  },
-  searchButton: {
-    margin: 0,
-    paddingTop: theme.spacing(1),
-    paddingBottom: theme.spacing(1),
-    height: '100%',
+  searchBar: {
+    display: 'flex',
+    alignItems: 'center',
   },
 }));
 
@@ -65,9 +57,8 @@ const SearchBooks = () => {
 
   return (
     <React.Fragment>
-      <Container maxWidth="xs">
+      <Container className={classes.searchBar} maxWidth="xs">
         <TextField
-          className={classes.search}
           id="search"
           label="Cari"
           type="search"
