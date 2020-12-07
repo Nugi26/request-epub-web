@@ -5,7 +5,7 @@
   "main": "index.js",
   "scripts": {
     "dev": "parcel src/index.html",
-    "deploy:src": "parcel build src/index.html --public-url ./"
+    "deploy:src": "parcel build src/index.html"
   },
   "keywords": [],
   "author": "",
