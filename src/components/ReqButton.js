@@ -1,13 +1,7 @@
 import React, { useState } from 'react';
 import { ADD_REQ, DELETE_REQ } from '../gql/mutation';
-import { ME, REQUESTS_FEED } from '../gql/query';
-import {
-  gql,
-  useApolloClient,
-  useLazyQuery,
-  useMutation,
-  useQuery,
-} from '@apollo/client';
+import { IS_LOGGED_IN, ME, REQUESTS_FEED } from '../gql/query';
+import { useApolloClient, useMutation, useQuery } from '@apollo/client';
 import { makeStyles } from '@material-ui/core/styles';
 import Button from '@material-ui/core/Button';
 import CircularProgress from '@material-ui/core/CircularProgress';
@@ -123,11 +117,7 @@ const ReqButton = ({ book, showedIn }) => {
     { loading: loadingDel, error: errorDel, data: dataDel },
   ] = useMutation(DELETE_REQ, updateHandler('del'));
 
-  const { data: login } = useQuery(gql`
-    query isLoggedIn {
-      isLoggedIn
-    }
-  `);
+  const { data: login } = useQuery(IS_LOGGED_IN);
 
   const addReq = () => {
     if (!login.isLoggedIn) return console.log('belum log in');

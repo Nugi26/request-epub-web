@@ -118,4 +118,10 @@ const GET_BOOK = gql`
   }
 `;
 
-export { SEARCH_BOOK, HELLO, ME, REQUESTS_FEED, GET_BOOK };
+const IS_LOGGED_IN = gql`
+  {
+    isLoggedIn @client
+  }
+`;
+
+export { SEARCH_BOOK, HELLO, ME, REQUESTS_FEED, GET_BOOK, IS_LOGGED_IN };

@@ -5,8 +5,9 @@ import AppBar from '@material-ui/core/AppBar';
 import Toolbar from '@material-ui/core/Toolbar';
 import Typography from '@material-ui/core/Typography';
 import Button from '@material-ui/core/Button';
-import { gql, useQuery, useApolloClient } from '@apollo/client';
+import { useQuery, useApolloClient } from '@apollo/client';
 import { isLoggedIn } from '../appState';
+import { IS_LOGGED_IN } from '../gql/query';
 
 const useStyles = makeStyles(theme => ({
   root: {
@@ -20,11 +21,7 @@ const useStyles = makeStyles(theme => ({
 export default function Header() {
   const classes = useStyles();
   const client = useApolloClient();
-  const { data } = useQuery(gql`
-    query loginState {
-      isLoggedIn @client
-    }
-  `);
+  const { data } = useQuery(IS_LOGGED_IN);
   const history = useHistory();
   const onClick = () => {
     // remove the token
