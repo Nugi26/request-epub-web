@@ -8,7 +8,7 @@ import About from './about';
 import SignIn from './signin';
 import { useQuery } from '@apollo/client';
 import { IS_LOGGED_IN } from '../gql/query';
-import SignUp from './SignUp';
+import SignUp from './signup';
 
 const Pages = () => {
   return (
