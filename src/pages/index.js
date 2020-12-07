@@ -5,10 +5,10 @@ import Layout from '../components/Layout';
 import Home from './home';
 import MyRequests from './myrequests';
 import About from './about';
-import SignUp from './SignUp';
 import SignIn from './signin';
 import { useQuery } from '@apollo/client';
 import { IS_LOGGED_IN } from '../gql/query';
+import SignUp from './SignUp';
 
 const Pages = () => {
   return (
