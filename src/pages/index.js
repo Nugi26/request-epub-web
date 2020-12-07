@@ -8,7 +8,7 @@ import About from './about';
 import SignIn from './signin';
 import { useQuery } from '@apollo/client';
 import { IS_LOGGED_IN } from '../gql/query';
-// import SignUp from './SignUp';
+import SignUp from './SignUp';
 
 const Pages = () => {
   return (
@@ -17,7 +17,7 @@ const Pages = () => {
         <Route exact path="/" component={Home} />
         <PrivateRoute path="/myrequests" component={MyRequests} />
         <Route path="/about" component={About} />
-        {/* <Route path="/signup" component={SignUp} /> */}
+        <Route path="/signup" component={SignUp} />
         <Route path="/signin" component={SignIn} />
       </Layout>
     </Router>
