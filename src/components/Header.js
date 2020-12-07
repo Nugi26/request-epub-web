@@ -14,6 +14,9 @@ const useStyles = makeStyles(theme => ({
   root: {
     flexGrow: 1,
   },
+  appBar: {
+    background: '#707070',
+  },
   title: {
     flexGrow: 1,
   },
@@ -55,7 +58,7 @@ export default function Header() {
 
   return (
     <div className={classes.root}>
-      <AppBar position="static" color="transparent">
+      <AppBar position="static" className={classes.appBar}>
         <Toolbar>
           <Typography variant="h6" className={classes.title} component="h1">
             Request EPUB untuk Tunanetra

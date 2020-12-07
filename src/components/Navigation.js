@@ -20,6 +20,9 @@ const useStyles = makeStyles(theme => ({
     flexGrow: 1,
     backgroundColor: theme.palette.background.paper,
   },
+  appBar: {
+    background: '#707070',
+  },
 }));
 
 export default function Navigation(props) {
@@ -42,7 +45,7 @@ export default function Navigation(props) {
 
   return (
     <div className={classes.root}>
-      <AppBar position="static" component="nav" color="transparent">
+      <AppBar position="static" component="nav" className={classes.appBar}>
         <Tabs
           value={value}
           onChange={handleChange}

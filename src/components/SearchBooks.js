@@ -13,7 +13,10 @@ import { fixedTotalItems, lastKeywords } from '../appState';
 const useStyles = makeStyles(theme => ({
   searchBar: {
     display: 'flex',
+    justifyContent: 'center',
     alignItems: 'center',
+    marginTop: theme.spacing(1),
+    marginBottom: theme.spacing(2),
   },
 }));
 
@@ -57,7 +60,7 @@ const SearchBooks = () => {
 
   return (
     <React.Fragment>
-      <Container className={classes.searchBar} maxWidth="xs">
+      <Container className={classes.searchBar}>
         <TextField
           id="search"
           label="Cari"
