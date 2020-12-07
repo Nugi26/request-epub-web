@@ -7,7 +7,8 @@ import Typography from '@material-ui/core/Typography';
 import Button from '@material-ui/core/Button';
 import { useQuery, useApolloClient } from '@apollo/client';
 import { isLoggedIn } from '../appState';
-import { IS_LOGGED_IN } from '../gql/query';
+import { IS_LOGGED_IN, ME } from '../gql/query';
+import UserAvatar from './Avatar';
 
 const useStyles = makeStyles(theme => ({
   root: {
@@ -22,6 +23,13 @@ export default function Header() {
   const classes = useStyles();
   const client = useApolloClient();
   const { data } = useQuery(IS_LOGGED_IN);
+  let userData;
+  if (data && data.isLoggedIn) {
+    userData = client.readQuery({
+      query: ME,
+    });
+    console.log(data);
+  }
   const history = useHistory();
   const onClick = () => {
     // remove the token
@@ -34,6 +42,7 @@ export default function Header() {
     history.go(0);
   };
 
+  console.log(userData);
   return (
     <div className={classes.root}>
       <AppBar position="static" color="transparent">
@@ -53,9 +62,12 @@ export default function Header() {
             </React.Fragment>
           )}
           {data.isLoggedIn && (
-            <Button color="inherit" onClick={onClick}>
-              Logout
-            </Button>
+            <React.Fragment>
+              <Button color="inherit" onClick={onClick}>
+                Logout
+              </Button>
+              {/* <UserAvatar url={userData.avatar} username={userData.username} /> */}
+            </React.Fragment>
           )}
         </Toolbar>
       </AppBar>
