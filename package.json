@@ -26,8 +26,10 @@
     "apollo-link-context": "^1.0.20",
     "fontsource-roboto": "^3.0.3",
     "graphql": "^15.4.0",
+    "pages": "0.0.16",
     "react": "^16.14.0",
     "react-dom": "^16.14.0",
-    "react-router-dom": "^5.2.0"
+    "react-router-dom": "^5.2.0",
+    "src": "^1.1.2"
   }
 }
