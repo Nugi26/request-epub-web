@@ -6,12 +6,6 @@ import SearchBooks from '../components/SearchBooks';
 import SearchResult from '../components/SearchResult';
 
 const Home = () => {
-  const { data: isLoggedIn } = useQuery(gql`
-    {
-      isLoggedIn @client
-    }
-  `);
-  if (isLoggedIn) useQuery(ME);
   return (
     <React.Fragment>
       <SearchBooks />

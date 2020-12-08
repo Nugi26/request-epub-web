@@ -21,14 +21,7 @@ const useStyles = makeStyles(theme => ({
 
 export default function UserAvatar() {
   const classes = useStyles();
-  const { data, loading, error } = useQuery(gql`
-    {
-      me @client {
-        username
-        avatar
-      }
-    }
-  `);
+  const { data, loading, error } = useQuery(ME);
   if (loading) return <React.Fragment>loading</React.Fragment>;
   if (error) return <p>`${error.message}`</p>;
   const { me } = { ...data };

@@ -33,7 +33,9 @@ export default function Toast() {
         autoHideDuration={4000}
         onClose={handleClose}
       >
-        <Alert severity="success">{toastState().message}</Alert>
+        <Alert severity={toastState().severity || 'success'}>
+          {toastState().message}
+        </Alert>
       </Snackbar>
     </div>
   );
