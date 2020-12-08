@@ -102,14 +102,7 @@ export default function SignIn(props) {
                 onChange={onChange}
                 autoComplete="current-password"
               />
-              {error && (
-                <Alert severity="error">
-                  {error.message ===
-                  'Response not successful: Received status code 400'
-                    ? 'Semua kolom harus diisi!'
-                    : error.message}
-                </Alert>
-              )}
+              {error && <Alert severity="error">{error.message}</Alert>}
             </Grid>
           </Grid>
           <Button

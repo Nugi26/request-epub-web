@@ -120,7 +120,7 @@ const ReqButton = ({ book, showedIn }) => {
   const { data: login } = useQuery(IS_LOGGED_IN);
 
   const addReq = () => {
-    if (!login.isLoggedIn) return console.log('belum log in');
+    if (!login.isLoggedIn) return;
     add();
   };
 

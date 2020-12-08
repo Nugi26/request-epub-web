@@ -33,9 +33,9 @@ export default function Header() {
     // remove the token
     localStorage.removeItem('token');
     // clear the application's cache
-    client.resetStore();
+    // client.resetStore();
     // update isLoggedIn state
-    isLoggedIn(!!localStorage.getItem('token'));
+    // isLoggedIn(!!localStorage.getItem('token'));
     // reload page
     history.go(0);
   };

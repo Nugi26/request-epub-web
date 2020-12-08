@@ -50,7 +50,7 @@ const SearchBooks = () => {
   const { totalItems } = { ...searchBook };
   // set fixed totalItems results
   // because gbook api always returns different totalItems on paginated query, and is always bigger approx. about 60%
-  if (keywordsChanged) fixedTotalItems(totalItems * 0.5);
+  if (keywordsChanged) fixedTotalItems(Math.floor(totalItems * 0.5));
 
   const onKeyUp = e => {
     if (e.keyCode === 13) {
