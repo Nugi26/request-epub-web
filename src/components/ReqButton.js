@@ -100,8 +100,8 @@ const ReqButton = ({ book, showedIn }) => {
       onCompleted: () => {
         toastState(
           action === 'add'
-            ? { added: true, message: 'Permintaan berhasil ditambahkan' }
-            : { deleted: true, message: 'Permintaan dibatalkan' }
+            ? { message: 'Permintaan berhasil ditambahkan' }
+            : { message: 'Permintaan dibatalkan' }
         );
       },
     };

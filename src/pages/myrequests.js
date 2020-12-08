@@ -3,8 +3,6 @@ import { REQUESTS_FEED, ME } from '../gql/query';
 import { useQuery } from '@apollo/client';
 import Requested from '../components/requested';
 import Typography from '@material-ui/core/Typography';
-import Toast from '../components/Toast';
-import { toastState } from '../appState';
 
 const MyRequests = () => {
   const { data, loading, error } = useQuery(ME);
@@ -27,12 +25,6 @@ const MyRequests = () => {
         {error && `${error.message}`}
       </div>
       {data && <Requested books={data.me.requests} showedIn="myRequests" />}
-      {toastState() && toastState().added && (
-        <Toast message={toastState().message} state={true} />
-      )}
-      {toastState() && toastState().deleted && (
-        <Toast message={toastState().message} state={true} />
-      )}
     </React.Fragment>
   );
 };

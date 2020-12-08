@@ -5,6 +5,7 @@ import Container from '@material-ui/core/Container';
 import Box from '@material-ui/core/Box';
 import Typography from '@material-ui/core/Typography';
 import Link from '@material-ui/core/Link';
+import Toast from './Toast';
 
 function Copyright() {
   return (
@@ -30,6 +31,7 @@ const Layout = ({ children }) => {
       <Box mt={5}>
         <Copyright />
       </Box>
+      <Toast />
     </React.Fragment>
   );
 };

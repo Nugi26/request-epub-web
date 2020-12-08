@@ -8,7 +8,7 @@ export const pageState = makeVar({
 });
 
 export const lastKeywords = makeVar('');
-export const toastState = makeVar(null);
+export const toastState = makeVar(false);
 
 export const fixedTotalItems = makeVar(null);
 
@@ -28,6 +28,11 @@ export const cache = new InMemoryCache({
     },
     Query: {
       fields: {
+        toastState: {
+          read() {
+            return toastState();
+          },
+        },
         requestsFeed: {
           keyArgs: false,
           merge: false,
