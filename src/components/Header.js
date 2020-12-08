@@ -1,6 +1,7 @@
 import React from 'react';
 import { useHistory, Link } from 'react-router-dom';
 import { makeStyles } from '@material-ui/core/styles';
+import Container from '@material-ui/core/Container';
 import AppBar from '@material-ui/core/AppBar';
 import Toolbar from '@material-ui/core/Toolbar';
 import Typography from '@material-ui/core/Typography';
@@ -27,23 +28,6 @@ export default function Header() {
   const client = useApolloClient();
   const { data } = useQuery(IS_LOGGED_IN);
 
-  // get user data
-  let user;
-  if (data && data.isLoggedIn) {
-    const { data } = useQuery(
-      gql`
-        {
-          me @client {
-            username
-            avatar
-          }
-        }
-      `
-    );
-
-    if (data && data.me) user = data.me;
-  }
-
   const history = useHistory();
   const onClick = () => {
     // remove the token
@@ -59,30 +43,33 @@ export default function Header() {
   return (
     <div className={classes.root}>
       <AppBar position="static" className={classes.appBar}>
-        <Toolbar>
-          <Typography variant="h6" className={classes.title} component="h1">
-            Request EPUB untuk Tunanetra
-          </Typography>
-          {!data.isLoggedIn && (
-            <React.Fragment>
-              <Button component={Link} color="inherit" to="/signin">
-                Sign in
-              </Button>
-              <span>|</span>
-              <Button component={Link} color="inherit" to="/signup">
-                Sign up
-              </Button>
-            </React.Fragment>
-          )}
-          {user && (
-            <React.Fragment>
-              <UserAvatar url={user.avatar} username={user.username} />
-              <Button color="inherit" onClick={onClick}>
-                Logout
-              </Button>
-            </React.Fragment>
-          )}
-        </Toolbar>
+        <Container maxWidth="lg">
+          <Toolbar>
+            <Typography variant="h6" className={classes.title} component="h1">
+              Request EPUB untuk Tunanetra
+            </Typography>
+            {!data.isLoggedIn && (
+              <React.Fragment>
+                <Button component={Link} color="inherit" to="/signin">
+                  Sign in
+                </Button>
+                <span>|</span>
+                <Button component={Link} color="inherit" to="/signup">
+                  Sign up
+                </Button>
+              </React.Fragment>
+            )}
+            {data.isLoggedIn && (
+              <React.Fragment>
+                {/* FIXME: query to ME id as {22} */}
+                <UserAvatar />
+                <Button color="inherit" onClick={onClick}>
+                  Logout
+                </Button>
+              </React.Fragment>
+            )}
+          </Toolbar>
+        </Container>
       </AppBar>
     </div>
   );

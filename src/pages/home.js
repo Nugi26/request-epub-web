@@ -9,7 +9,7 @@ import { toastState } from '../appState';
 
 const Home = () => {
   const { data: isLoggedIn } = useQuery(gql`
-    query isLoggedIn {
+    {
       isLoggedIn @client
     }
   `);
