@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { useMutation } from '@apollo/client';
+import MuiAlert from '@material-ui/lab/Alert';
 import { isLoggedIn } from '../appState';
 import Avatar from '@material-ui/core/Avatar';
 import { Link as RouterLink } from 'react-router-dom';
@@ -12,6 +13,10 @@ import Typography from '@material-ui/core/Typography';
 import { makeStyles } from '@material-ui/core/styles';
 import Container from '@material-ui/core/Container';
 import { SIGN_IN } from '../gql/mutation';
+
+function Alert(props) {
+  return <MuiAlert elevation={6} variant="filled" {...props} />;
+}
 
 const useStyles = makeStyles(theme => ({
   paper: {
@@ -97,6 +102,14 @@ export default function SignIn(props) {
                 onChange={onChange}
                 autoComplete="current-password"
               />
+              {error && (
+                <Alert severity="error">
+                  {error.message ===
+                  'Response not successful: Received status code 400'
+                    ? 'Semua kolom harus diisi!'
+                    : error.message}
+                </Alert>
+              )}
             </Grid>
           </Grid>
           <Button
@@ -108,12 +121,6 @@ export default function SignIn(props) {
           >
             Sign In
           </Button>
-          {/* TODO: use suitable alert component! */}
-          <p aria-live="polite">
-            {loading && 'loading....'}
-            {error && `${error.message}`}
-            {data && 'Sign In sukses'}{' '}
-          </p>
           <Grid container justify="flex-end">
             <Grid item>
               <Link component={RouterLink} to="/signup" variant="body2">

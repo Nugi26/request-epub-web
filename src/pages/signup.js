@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { useMutation } from '@apollo/client';
+import MuiAlert from '@material-ui/lab/Alert';
 import { isLoggedIn } from '../appState';
 import Avatar from '@material-ui/core/Avatar';
 import { Link as RouterLink } from 'react-router-dom';
@@ -7,24 +8,14 @@ import Button from '@material-ui/core/Button';
 import TextField from '@material-ui/core/TextField';
 import Link from '@material-ui/core/Link';
 import Grid from '@material-ui/core/Grid';
-import Box from '@material-ui/core/Box';
 import LockOutlinedIcon from '@material-ui/icons/LockOutlined';
 import Typography from '@material-ui/core/Typography';
 import { makeStyles } from '@material-ui/core/styles';
 import Container from '@material-ui/core/Container';
 import { SIGN_UP } from '../gql/mutation';
 
-function Copyright() {
-  return (
-    <Typography variant="body2" color="textSecondary" align="center">
-      {'Copyright © '}
-      <Link color="inherit" href="https://github.com/adinugraha2611/">
-        Adinugraha2611
-      </Link>{' '}
-      {new Date().getFullYear()}
-      {'.'}
-    </Typography>
-  );
+function Alert(props) {
+  return <MuiAlert elevation={6} variant="filled" {...props} />;
 }
 
 const useStyles = makeStyles(theme => ({
@@ -122,6 +113,14 @@ export default function SignUp(props) {
                 onChange={onChange}
                 autoComplete="current-password"
               />
+              {error && (
+                <Alert severity="error">
+                  {error.message ===
+                  'Response not successful: Received status code 400'
+                    ? 'Semua kolom harus diisi!'
+                    : error.message}
+                </Alert>
+              )}
             </Grid>
           </Grid>
           <Button
@@ -133,11 +132,6 @@ export default function SignUp(props) {
           >
             Sign Up
           </Button>
-          <p aria-live="polite">
-            {loading && 'loading....'}
-            {error && `${error.message}`}
-            {data && 'Sign up sukses'}{' '}
-          </p>
           <Grid container justify="flex-end">
             <Grid item>
               <Link component={RouterLink} to="/signin" variant="body2">
@@ -147,9 +141,6 @@ export default function SignUp(props) {
           </Grid>
         </form>
       </div>
-      <Box mt={5}>
-        <Copyright />
-      </Box>
     </Container>
   );
 }
