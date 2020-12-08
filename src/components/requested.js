@@ -6,17 +6,16 @@ import Container from '@material-ui/core/Container';
 import RequestedCard from './RequestedCard';
 
 const useStyles = makeStyles(theme => ({
-  icon: {
-    marginRight: theme.spacing(2),
-  },
-  cardGrid: {
-    paddingTop: theme.spacing(2),
-    paddingBottom: theme.spacing(2),
-    listStyleType: 'none',
+  root: {
+    paddingTop: theme.spacing(3),
+    paddingBottom: theme.spacing(3),
   },
   gridContainer: {
-    paddingTop: theme.spacing(3),
+    paddingTop: theme.spacing(2),
     flexDirection: 'column',
+  },
+  cardItem: {
+    listStyleType: 'none',
   },
 }));
 
@@ -24,7 +23,7 @@ export default function Requested({ books, userData, showedIn }) {
   const classes = useStyles();
   return (
     <React.Fragment>
-      <Container className={classes.cardGrid} maxWidth="lg">
+      <Container className={classes.root} maxWidth="lg">
         {showedIn === 'searchResult' && (
           <Typography gutterBottom variant="h5" component="h3">
             Buku yang telah di-request
@@ -39,7 +38,13 @@ export default function Requested({ books, userData, showedIn }) {
         >
           {books.map(book => {
             return (
-              <Grid item key={book.id} xs={12} component="li">
+              <Grid
+                item
+                key={book.id}
+                xs={12}
+                component="li"
+                className={classes.cardItem}
+              >
                 <RequestedCard
                   book={book}
                   showedIn={showedIn}

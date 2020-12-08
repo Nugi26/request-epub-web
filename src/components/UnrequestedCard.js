@@ -62,6 +62,13 @@ const UnrequestedCard = ({ book, showedIn }) => {
 
         <Typography variant="body2">
           {!!book.authors && `Penulis: ${book.authors.join(', ')}.`}
+          <br />
+          {!!book.publisher && `Penerbit ${book.publisher}`}
+          <br />
+          {!!book.published_date && `${book.published_date}`}
+          <br />
+          {!!book.average_rating && `Rating ${book.average_rating}`}
+          <br />
         </Typography>
       </CardContent>
       <CardActions>
