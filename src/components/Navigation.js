@@ -19,9 +19,10 @@ const useStyles = makeStyles(theme => ({
   root: {
     flexGrow: 1,
     backgroundColor: theme.palette.background.paper,
+    marginBottom: theme.spacing(3),
   },
   appBar: {
-    background: '#707070',
+    background: '#00008b',
   },
 }));
 

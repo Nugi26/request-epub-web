@@ -65,7 +65,7 @@ const RequestedCard = ({ book, userData, showedIn }) => {
             alignItems="stretch"
           >
             <Grid item>
-              <CardContent>
+              <CardContent tabIndex="1">
                 <Typography variant="subtitle1" component="h4">
                   {book.title}
                 </Typography>

@@ -144,7 +144,7 @@ const ReqButton = ({ book, showedIn }) => {
         aria-label={
           reqByMe ? 'batalkan permintaan buku' : 'tambah permintaan buku'
         }
-        color={reqByMe ? 'primary' : 'secondary'}
+        color={reqByMe ? 'secondary' : 'primary'}
         className={classes.reqButton}
         onClick={reqByMe ? delReq : addReq}
       >
