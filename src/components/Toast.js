@@ -29,13 +29,11 @@ export default function Toast() {
           vertical: 'bottom',
           horizontal: 'center',
         }}
-        open={data.toastState}
+        open={!!data.toastState}
         autoHideDuration={4000}
         onClose={handleClose}
       >
-        <Alert severity={toastState().severity || 'success'}>
-          {toastState().message}
-        </Alert>
+        <Alert severity={toastState().severity}>{toastState().message}</Alert>
       </Snackbar>
     </div>
   );

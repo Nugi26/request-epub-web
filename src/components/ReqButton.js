@@ -8,7 +8,7 @@ import CircularProgress from '@material-ui/core/CircularProgress';
 import Typography from '@material-ui/core/Typography';
 import Add from '@material-ui/icons/Add';
 import Remove from '@material-ui/icons/Remove';
-import { toastState } from '../appState';
+import { pageState, toastState } from '../appState';
 
 const useStyles = makeStyles(theme => ({
   reqButton: {
@@ -33,35 +33,6 @@ const ReqButton = ({ book, showedIn }) => {
         const userData = cache.readQuery({
           query: ME,
         });
-        if (showedIn === 'home' || 'searchResult') {
-          const reqsList = cache.readQuery({
-            query: REQUESTS_FEED,
-            variables: {
-              pageNumber: 1,
-              orderBy: 'reqs_count',
-              orderDirection: 'desc',
-            },
-          });
-
-          cache.writeQuery({
-            query: REQUESTS_FEED,
-            variables: {
-              pageNumber: 1,
-              orderBy: 'reqs_count',
-              orderDirection: 'desc',
-            },
-            data: {
-              requestsFeed: {
-                requests:
-                  action === 'add' && reqs_count === 0
-                    ? [...reqsList.requestsFeed.requests, book]
-                    : reqsList.requestsFeed.requests.filter(
-                        req => req.id !== book.id
-                      ),
-              },
-            },
-          });
-        }
 
         // update user's myRequests list
         cache.writeQuery({
@@ -75,18 +46,10 @@ const ReqButton = ({ book, showedIn }) => {
             },
           },
         });
+
         cache.modify({
           id: cache.identify(book),
           fields: {
-            // id(current) {
-            //   if (
-            //     showedIn === 'searchResult' &&
-            //     action === 'add' &&
-            //     reqs_count === 0
-            //   ) {
-            //     return outputId;
-            //   } else return current;
-            // },
             reqs_count(existing) {
               return action === 'add' ? existing + 1 : existing - 1;
             },
@@ -95,13 +58,21 @@ const ReqButton = ({ book, showedIn }) => {
             },
           },
         });
+
+        // remove book if reqs_count reaches 0
+        if (book.reqs_count === 1 && action === 'del') {
+          cache.evict({ id: cache.identify(book) });
+        }
       },
       variables: action === 'add' ? { book: bookInputData } : { bookId: id },
       onCompleted: () => {
         toastState(
           action === 'add'
-            ? { message: 'Permintaan berhasil ditambahkan' }
-            : { message: 'Permintaan dibatalkan' }
+            ? {
+                message: 'Permintaan berhasil ditambahkan',
+                severity: 'success',
+              }
+            : { message: 'Permintaan dibatalkan', severity: 'success' }
         );
       },
     };
