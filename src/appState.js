@@ -8,7 +8,7 @@ export const pageState = makeVar({
 });
 
 export const lastKeywords = makeVar('');
-export const toastState = makeVar(null);
+export const toastState = makeVar(false);
 
 export const fixedTotalItems = makeVar(null);
 
